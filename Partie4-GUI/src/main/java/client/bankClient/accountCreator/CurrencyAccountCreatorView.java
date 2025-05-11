@@ -1,0 +1,38 @@
+package client.bankClient.accountCreator;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import bus.Currency;
+import bus.model.account.CurrencyAccount;
+
+public class CurrencyAccountCreatorView extends JPanel {
+
+	private static final long serialVersionUID = 1207654655676805106L;
+
+	
+	private JComboBox<Currency> comboBox;
+	
+	public CurrencyAccountCreatorView() {
+		setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Select currency:");
+		lblNewLabel.setBounds(75, 115, 138, 14);
+		add(lblNewLabel);
+		
+		comboBox = new JComboBox<Currency>();
+		comboBox.setModel(new DefaultComboBoxModel<Currency>(Currency.values()));
+		comboBox.setBounds(223, 111, 125, 22);
+		add(comboBox);
+		
+		
+	}
+	
+	public CurrencyAccount generateAccount() {
+		Currency curr = comboBox.getItemAt(comboBox.getSelectedIndex());
+		return new CurrencyAccount(curr);
+	}
+
+}

@@ -1,0 +1,16 @@
+package client.bankClient;
+
+import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
+
+public class CreditAccountCreatorView extends JPanel {
+
+	private static final long serialVersionUID = 7237429870737462582L;
+
+	public CreditAccountCreatorView() {
+		setLayout(null);
+	}
+
+
+}

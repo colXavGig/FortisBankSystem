@@ -1,0 +1,49 @@
+package utils;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import bus.user.BankClient;
+import bus.user.BankManager;
+import bus.user.User;
+
+public class UserCollection extends DataCollection<User> {
+	
+	private static UserCollection instance = null;
+
+	public UserCollection() throws ClassNotFoundException, IOException {
+		super();
+		fileManager = new FileManager<User>(User.class);
+		load();
+	}
+	
+	public static UserCollection getInstance() throws ClassNotFoundException, IOException {
+		if (instance == null) {
+			instance = new UserCollection();
+		}
+		return instance;
+	}
+	
+	public List<BankClient> getBankClients() {
+		List<BankClient> bankClients = new ArrayList<BankClient>();
+		for (User user : getData()) {
+			if (user instanceof BankClient) {
+				bankClients.add((BankClient) user);
+			}
+		}
+		return bankClients;
+	}
+	
+	public List<BankManager> getBankManagers() {
+		List<BankManager> bankManagers = new ArrayList<BankManager>();
+		for (User user : getData()) {
+			if (user instanceof BankManager) {
+				bankManagers.add((BankManager) user);
+			}
+		}
+		return bankManagers;
+	}
+	
+
+}

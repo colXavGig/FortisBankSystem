@@ -1,0 +1,131 @@
+package client.bankManager;
+
+import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+import bus.BusinessException;
+import bus.model.notification.Task;
+import bus.model.user.BankManager;
+
+public class WorkOnTaskView extends JPanel {
+
+	private static final long serialVersionUID = 6846702592768625644L;
+	
+	private ManagerDashboard parentView;
+	private BankManager manager;
+	private Task currentTask;
+	private CardLayout panelSwitcher = new CardLayout();
+	private JPanel switcherContainer;
+	private JPanel taskView;
+	JLabel taskInfo_Label;
+
+	public WorkOnTaskView(ManagerDashboard parent) {
+		super();
+		parentView = parent;
+		setLayout(null);
+		
+		JButton backBtn = new JButton("Back");
+		backBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				parentView.navBack();
+			}
+		});
+		backBtn.setBounds(10, 11, 89, 23);
+		add(backBtn);
+		
+		switcherContainer = new JPanel();
+		switcherContainer.setBounds(20, 45, 420, 244);
+		switcherContainer.setLayout(panelSwitcher);
+		add(switcherContainer);
+		
+		JPanel emptyListView = new JPanel();
+		emptyListView.setLayout(null);
+		switcherContainer.add(emptyListView, "Empty list");
+		
+		JLabel lblNewLabel = new JLabel("All tasks are completed");
+		lblNewLabel.setBounds(162, 109, 110, 14);
+		emptyListView.add(lblNewLabel);
+		
+		taskView = new JPanel();
+		taskView.setLayout(null);
+		switcherContainer.add(taskView, "Task todo");
+		
+		taskInfo_Label = new JLabel("[TASK INFO]");
+		taskInfo_Label.setHorizontalAlignment(SwingConstants.CENTER);
+		taskInfo_Label.setBounds(10, 11, 400, 127);
+		taskView.add(taskInfo_Label);
+		
+		JButton accept_Button = new JButton("Accept");
+		accept_Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				currentTask.approve();
+				try {
+					WorkOnTaskView.this.manager.updateTask(currentTask);
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(WorkOnTaskView.this, "Error while updating task.");
+				}
+				updateView();
+			}
+		});
+		accept_Button.setBounds(65, 183, 89, 23);
+		taskView.add(accept_Button);
+		
+		JButton deny_Button = new JButton("Deny");
+		deny_Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				currentTask.refuse();
+				try {
+					WorkOnTaskView.this.manager.updateTask(currentTask);
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(WorkOnTaskView.this, "Error while updating task.");
+					return;
+				}
+				updateView();
+			}
+		});
+		deny_Button.setBounds(250, 183, 89, 23);
+		taskView.add(deny_Button);
+		
+		panelSwitcher.show(switcherContainer, "Empty list");
+	}
+
+	
+	private void updateView() {
+		assert(manager != null);
+		
+		try {
+			if (manager.hasTaskTodo()) {
+				panelSwitcher.show(switcherContainer, "Empty list");
+			} else {
+				try {
+					var nextTask = manager.getNextTask();
+					setTask(nextTask);
+				} catch (BusinessException e) {
+					JOptionPane.showMessageDialog(this, "Could not get the next task");
+					return;
+				}
+				panelSwitcher.show(switcherContainer, "Task todo");
+			}
+		} catch (BusinessException e) {
+			JOptionPane.showMessageDialog(this, "Could not find out if manager have more task to do");
+		}
+	}
+	
+	private void setTask(Task newtask ) {
+		this.currentTask = newtask;
+		taskInfo_Label.setText(currentTask.getMessage());
+	}
+	
+	public void setManager(BankManager manager) {
+		this.manager = manager;
+		updateView();
+	}
+}

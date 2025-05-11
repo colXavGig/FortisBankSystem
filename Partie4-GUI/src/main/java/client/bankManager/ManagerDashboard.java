@@ -1,0 +1,128 @@
+package client.bankManager;
+
+import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Stack;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+import bus.model.user.BankManager;
+import client.MainFrame;
+
+public class ManagerDashboard extends JPanel {
+
+	private static final long serialVersionUID = -5706336339743980016L;
+	
+	private MainFrame parentView;
+	private BankManager manager;
+	
+	private CardLayout panelSwitcher = new CardLayout();
+	private Stack<String> navHistory = new Stack<String>();
+	private JPanel selectorPanel;
+	private WorkOnTaskView taskWorker;
+	private TransactionDetailsView transactDetails;
+	private AccountsBalanceView balanceView;
+	
+
+	public ManagerDashboard(MainFrame parent) {
+		super();
+		parentView = parent;
+		setLayout(panelSwitcher);
+		
+		selectorPanel = new JPanel();
+		add(selectorPanel, "Selector view");
+		selectorPanel.setLayout(null);
+		
+		JButton tasksBtn = new JButton("Work on tasks");
+		tasksBtn.setBounds(76, 88, 127, 47);
+		tasksBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showTaskWorker();
+			}
+		});
+		selectorPanel.add(tasksBtn);
+		
+		JButton transactDetailsBtn = new JButton("Check transactions details");
+		transactDetailsBtn.setBounds(264, 88, 127, 47);
+		transactDetailsBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showTransactDetails();
+			}
+		});
+		selectorPanel.add(transactDetailsBtn);
+		
+		JButton checkBalanceBtn = new JButton("Check balance");
+		checkBalanceBtn.setBounds(163, 164, 127, 47);
+		checkBalanceBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showAccountBalance();
+			}
+		});
+		selectorPanel.add(checkBalanceBtn);
+		
+		JButton backBtn = new JButton("Logout");
+		backBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				parentView.logout();
+			}
+		});
+		backBtn.setBounds(10, 11, 89, 23);
+		selectorPanel.add(backBtn);
+		
+		taskWorker = new WorkOnTaskView(this);
+		add(taskWorker, "Task worker");
+		
+		transactDetails = new TransactionDetailsView(this);
+		add(transactDetails, "Transact details");
+		
+		balanceView = new AccountsBalanceView(this);
+		add(balanceView, "Balance view");
+		
+		showSelector();
+	}
+	
+	public void showTaskWorker() {
+		showPanel("Task worker");
+	}
+	
+	public void showSelector() {
+		showPanel("Selector view");
+	}
+	
+	public void showTransactDetails() {
+		showPanel("Transact details");
+	}
+	
+	public void showAccountBalance() {
+		showPanel("Balance view");
+	}
+	
+	private void showPanel(String panelName) {
+		navHistory.push(panelName);
+		panelSwitcher.show(this, panelName);
+	}
+	
+	public void navBack() {
+		if (navHistory.size() <= 1) {
+			parentView.logout();
+			return;
+		}
+		
+		navHistory.pop();
+		panelSwitcher.show(this, navHistory.peek());
+	}
+
+
+	public void setManager(BankManager manager) {
+		this.manager = manager;
+		taskWorker.setManager(this.manager);
+	}
+}

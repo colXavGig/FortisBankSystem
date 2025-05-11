@@ -1,0 +1,15 @@
+package client.bankClient.accountManager;
+
+import javax.swing.JPanel;
+
+public class BankAccountManagerView extends JPanel {
+
+	private static final long serialVersionUID = -140645226591956846L;
+	
+	
+
+	public BankAccountManagerView() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

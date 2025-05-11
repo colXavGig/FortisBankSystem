@@ -1,0 +1,84 @@
+package client.bankClient.accountManager;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.AbstractListModel;
+import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JPanel;
+
+import bus.model.transaction.TransactionRecord;
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.DefaultTableModel;
+
+public class TransactionHistoryView extends JPanel {
+
+	private static final long serialVersionUID = 5241904740849819011L;
+	
+	private JTable table;
+
+	public TransactionHistoryView(BankAccountManagerView parent) {
+		setLayout(null);
+		
+		JButton backBtn = new JButton("Back");
+		backBtn.setBounds(10, 11, 89, 23);
+		backBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				parent.navBack();
+			}
+		});
+		add(backBtn);
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"HistoricID", "Type", "New balance", "Operation", "Date"
+			}
+		));
+		table.setBounds(20, 45, 420, 232);
+		add(table);
+		
+		setVisible(true);
+	}
+
+	public void setHistoryList(List<TransactionRecord> historyList) {
+		table.setModel(new AbstractTableModel() {
+			
+			private static final long serialVersionUID = -5220282170655754381L;
+
+			@Override
+			public Object getValueAt(int rowIndex, int columnIndex) {
+				var record = historyList.get(rowIndex);
+				
+				switch (columnIndex) {
+				case 0: return record.historicID();
+				case 1: return record.type();
+				case 2: return record.newBalance();
+				case 3: return record.operation();
+				case 4: return record.date();
+				default: return record.getClass();
+				}
+			}
+			
+			@Override
+			public int getRowCount() {
+				
+				return historyList.size();
+			}
+			
+			@Override
+			public int getColumnCount() {
+				// TODO Auto-generated method stub
+				return 5;
+			}
+		});
+	}
+}

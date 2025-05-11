@@ -1,0 +1,32 @@
+package utils;
+
+import java.io.IOException;
+
+import bus.account.BankAccount;
+
+public class BankAccountCollection extends DataCollection<BankAccount> {
+	
+	private static BankAccountCollection instance = null;
+	
+	protected BankAccountCollection() throws ClassNotFoundException, IOException {
+		super();
+		fileManager = new FileManager<BankAccount>(BankAccount.class);
+		load();
+	}
+	public static BankAccountCollection getInstance() throws ClassNotFoundException, IOException {
+		if (instance == null) {
+			instance = new BankAccountCollection();
+		}
+		return instance;
+	}
+	
+	public void refresh() throws ClassNotFoundException, IOException {
+		var instance = getInstance();
+		instance.clear();
+		UserCollection.getInstance().getBankClients().forEach(client -> {
+			client.getBankAccounts().forEach(account -> {
+				instance.add(account);
+			});
+		});
+	}
+}

@@ -1,0 +1,58 @@
+package client.bankClient;
+
+import javax.swing.JPanel;
+
+import bus.model.account.CurrencyAccount;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.annotation.processing.Generated;
+import javax.swing.DefaultComboBoxModel;
+import bus.Currency;
+import javax.swing.JButton;
+
+public class CurrencyAccountCreatorView extends JPanel {
+
+	private static final long serialVersionUID = 1207654655676805106L;
+
+	private AddAccountView parent;
+	
+	private CurrencyAccount account;
+	
+	private JComboBox<Currency> comboBox;
+	
+	public CurrencyAccountCreatorView(AddAccountView parent) {
+		this.parent = parent;
+		setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Select currency:");
+		lblNewLabel.setBounds(75, 115, 138, 14);
+		add(lblNewLabel);
+		
+		comboBox = new JComboBox<Currency>();
+		comboBox.setModel(new DefaultComboBoxModel<Currency>(Currency.values()));
+		comboBox.setBounds(223, 111, 125, 22);
+		add(comboBox);
+		
+		JButton createBtn = new JButton("Create");
+		createBtn.setBounds(164, 165, 89, 23);
+		createBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				generateAccount();
+				parent.createBankAccount(account);
+			}
+		});
+		add(createBtn);
+	}
+	
+	private void generateAccount() {
+		Currency curr = comboBox.getItemAt(comboBox.getSelectedIndex());
+		account = new CurrencyAccount(curr);
+	}
+
+}

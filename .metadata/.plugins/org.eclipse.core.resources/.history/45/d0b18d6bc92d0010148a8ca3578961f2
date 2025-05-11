@@ -1,0 +1,13 @@
+package client.bankManager;
+
+import javax.swing.JPanel;
+
+public class WorkOnTaskView extends JPanel {
+
+	private static final long serialVersionUID = 6846702592768625644L;
+
+	public WorkOnTaskView() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

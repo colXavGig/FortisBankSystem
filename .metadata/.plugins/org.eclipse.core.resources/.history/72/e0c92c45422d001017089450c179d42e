@@ -1,0 +1,56 @@
+package client.bankClient.accountManager;
+
+import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
+
+import bus.model.account.BankAccount;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import bus.model.transaction.ClientTransactionType;
+import java.awt.CardLayout;
+import javax.swing.JButton;
+
+public class TransactionMakerView extends JPanel {
+	
+	private BankAccount account;
+	private BankAccountManagerView parentView;
+	
+	private JComboBox<ClientTransactionType> type_comboBox;
+	private JPanel switchContainer;
+	private CardLayout panelSwitcher;
+	
+
+	public TransactionMakerView(BankAccountManagerView parent) {
+		setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Transaction type:");
+		lblNewLabel.setBounds(47, 41, 98, 14);
+		add(lblNewLabel);
+		
+		type_comboBox = new JComboBox<ClientTransactionType>();
+		type_comboBox.setModel(new DefaultComboBoxModel<ClientTransactionType>(ClientTransactionType.values()));
+		type_comboBox.setBounds(153, 39, 98, 18);
+		add(type_comboBox);
+		
+		panelSwitcher = new CardLayout();
+		
+		switchContainer = new JPanel();
+		switchContainer.setBounds(47, 81, 316, 139);
+		add(switchContainer);
+		switchContainer.setLayout(panelSwitcher);
+		
+		JButton makeBtn = new JButton("Make transaction");
+		makeBtn.setBounds(153, 242, 129, 23);
+		add(makeBtn);
+		parentView = parent;
+		
+		
+	}
+
+
+	public void setAccount(BankAccount account) {
+		this.account = account;
+	}
+}

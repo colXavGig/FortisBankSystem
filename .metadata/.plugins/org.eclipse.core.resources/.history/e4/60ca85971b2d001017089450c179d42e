@@ -1,0 +1,28 @@
+package client.bankClient.accountManager;
+
+import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
+
+public class TransactionHistoryView extends JPanel {
+
+	public TransactionHistoryView() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public TransactionHistoryView(LayoutManager layout) {
+		super(layout);
+		// TODO Auto-generated constructor stub
+	}
+
+	public TransactionHistoryView(boolean isDoubleBuffered) {
+		super(isDoubleBuffered);
+		// TODO Auto-generated constructor stub
+	}
+
+	public TransactionHistoryView(LayoutManager layout, boolean isDoubleBuffered) {
+		super(layout, isDoubleBuffered);
+		// TODO Auto-generated constructor stub
+	}
+
+}

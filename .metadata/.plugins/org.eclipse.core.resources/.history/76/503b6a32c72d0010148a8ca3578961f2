@@ -1,0 +1,9 @@
+package client.bankManager;
+
+public class WorkOnTaskView {
+
+	public WorkOnTaskView() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

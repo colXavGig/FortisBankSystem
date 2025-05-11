@@ -1,0 +1,30 @@
+package utils;
+
+import java.io.IOException;
+import java.util.List;
+
+import bus.user.notification.Task;
+
+public class TaskCollection extends DataCollection<Task> {
+
+	private static TaskCollection instance = null;
+	private TaskCollection() throws ClassNotFoundException, IOException {
+		super();
+		fileManager = new FileManager<Task>(Task.class);
+		load();
+	}
+
+	public static TaskCollection getInstance() throws ClassNotFoundException, IOException {
+		if (instance == null) {
+			instance = new TaskCollection();
+		}
+		return instance;
+	}
+	
+	public List<Task> getTaskToDo() {
+		return getData().stream()
+				.filter(task -> !task.getIsDone())
+				.toList();
+	}
+
+}

@@ -1,0 +1,21 @@
+1743656306923	Copy source folder
+1743656393218	Delete element
+1743656407363	Copy source folder
+1743656430680	Copy source folder
+1743656450393	Delete element
+1743656805873	Delete element
+1743657030826	Move source folder
+1743657044254	Delete element
+1743657057098	Rename resource 'test'
+1743658843623	Move compilation unit
+1743659462595	Rename type 'System'
+1743661781010	Rename type 'ClientCreationTask'
+1743662053145	Encapsulate field 'user, ...'
+1743663924031	Delete element
+1743793266594	Rename type 'Sys'
+1743793567114	Rename package 'bus.account'
+1743793585410	Rename package 'bus.transaction'
+1743793609096	Rename package 'bus.user'
+1743793628072	Rename package 'bus.user.notification'
+1743796356665	Rename type 'UIException'
+1743888444454	Delete element

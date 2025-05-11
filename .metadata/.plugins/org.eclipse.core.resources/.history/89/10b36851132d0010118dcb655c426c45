@@ -1,0 +1,36 @@
+package client.bankClient;
+
+import javax.swing.JPanel;
+
+import bus.model.account.SavingAccount;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+public class SavingAccountCreatorView extends JPanel {
+
+	private static final long serialVersionUID = 4176330582263312362L;
+	
+	
+	private JTextField textField;
+
+	public SavingAccountCreatorView() {
+		setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("InterestRate");
+		lblNewLabel.setBounds(46, 44, 78, 14);
+		add(lblNewLabel);
+		
+		textField = new JTextField();
+		textField.setBounds(207, 41, 97, 17);
+		add(textField);
+		textField.setColumns(10);
+	}
+	
+	SavingAccount generateSavingAccount() {
+		var interestRate = textField.getText();
+		var rate_dbl = Double.parseDouble(interestRate);
+		return new SavingAccount(rate_dbl);
+	}
+
+}

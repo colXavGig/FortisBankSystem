@@ -1,0 +1,28 @@
+package client.bankClient;
+
+import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
+
+public class BankAccountManagerView extends JPanel {
+
+	public BankAccountManagerView() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public BankAccountManagerView(LayoutManager layout) {
+		super(layout);
+		// TODO Auto-generated constructor stub
+	}
+
+	public BankAccountManagerView(boolean isDoubleBuffered) {
+		super(isDoubleBuffered);
+		// TODO Auto-generated constructor stub
+	}
+
+	public BankAccountManagerView(LayoutManager layout, boolean isDoubleBuffered) {
+		super(layout, isDoubleBuffered);
+		// TODO Auto-generated constructor stub
+	}
+
+}

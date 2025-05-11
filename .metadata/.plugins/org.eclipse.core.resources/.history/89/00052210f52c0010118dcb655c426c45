@@ -1,0 +1,9 @@
+package client.bankManager;
+
+public class ManagerDashboard {
+
+	public ManagerDashboard() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

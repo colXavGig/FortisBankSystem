@@ -1,0 +1,11 @@
+package client.bankClient;
+
+import javax.swing.JPanel;
+
+public class CurrencyAccountCreatorView extends JPanel {
+
+	public CurrencyAccountCreatorView() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

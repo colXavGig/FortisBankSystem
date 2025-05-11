@@ -1,0 +1,34 @@
+package client.bankClient.accountManager;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import bus.model.transaction.Deposit;
+
+public class WithdrawView extends JPanel {
+	private static final long serialVersionUID = 4142870515580221372L;
+	private JTextField amount_textField;
+
+	public WithdrawView() {
+		setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(49, 37, 46, 14);
+		add(lblNewLabel);
+		
+		amount_textField = new JTextField();
+		amount_textField.setBounds(151, 35, 190, 17);
+		add(amount_textField);
+		amount_textField.setColumns(10);
+		// TODO Auto-generated constructor stub
+	}
+	
+	Deposit generateDeposit() {
+		var amount = Double.parseDouble(amount_textField.getText());
+		var deposit = new Deposit();
+		deposit.setAmount(amount);
+		
+		return deposit;
+	}
+}

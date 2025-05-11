@@ -1,0 +1,33 @@
+package client;
+
+import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
+
+public class AuthPanel extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5818133698486830709L;
+
+	public AuthPanel() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public AuthPanel(LayoutManager layout) {
+		super(layout);
+		// TODO Auto-generated constructor stub
+	}
+
+	public AuthPanel(boolean isDoubleBuffered) {
+		super(isDoubleBuffered);
+		// TODO Auto-generated constructor stub
+	}
+
+	public AuthPanel(LayoutManager layout, boolean isDoubleBuffered) {
+		super(layout, isDoubleBuffered);
+		// TODO Auto-generated constructor stub
+	}
+
+}

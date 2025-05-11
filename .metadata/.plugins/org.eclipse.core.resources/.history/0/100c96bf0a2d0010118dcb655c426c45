@@ -1,0 +1,31 @@
+package client.bankClient;
+
+import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import bus.model.account.BankAccountType;
+
+public class AddAccountView extends JPanel {
+
+	
+	
+	private static final long serialVersionUID = -3639977753174761212L;
+	
+	private BankAccountManagerView parent;
+
+	public AddAccountView(BankAccountManagerView parent) {
+		this.parent = parent;
+		setLayout(null);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(182, 35, 70, 20);
+		comboBox.setModel(new DefaultComboBoxModel(BankAccountType.values()));
+		add(comboBox);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 69, 430, 220);
+		add(panel);
+	}
+}

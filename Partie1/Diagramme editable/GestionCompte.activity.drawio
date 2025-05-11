@@ -1,0 +1,138 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0" version="26.1.0">
+  <diagram name="Page-1" id="e7e014a7-5840-1c2e-5031-d8a46d1fe8dd">
+    <mxGraphModel dx="1631" dy="879" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="826" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="Thread 1" style="swimlane;whiteSpace=wrap" parent="1" vertex="1">
+          <mxGeometry x="20" y="270" width="720" height="1010" as="geometry" />
+        </mxCell>
+        <mxCell id="10VoKkZzMrB7BITPwusA-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#FF0000;" parent="2" source="5" target="10VoKkZzMrB7BITPwusA-41" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="" style="ellipse;shape=startState;fillColor=#000000;strokeColor=#ff0000;" parent="2" vertex="1">
+          <mxGeometry x="355" y="40" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="Créer un compte chèque" style="whiteSpace=wrap;" parent="2" vertex="1">
+          <mxGeometry x="80" y="360" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="Choisir le type de compte à créer&#xa;" style="whiteSpace=wrap;" parent="2" vertex="1">
+          <mxGeometry x="80" y="500" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="" style="endArrow=open;strokeColor=#FF0000;endFill=1;rounded=0" parent="2" source="7" target="8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="2" source="10" target="38">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="135" y="780" />
+              <mxPoint x="370" y="780" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="10" value="Soumettre la création de compte&#xa;" style="whiteSpace=wrap;" parent="2" vertex="1">
+          <mxGeometry x="80" y="655" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="" style="endArrow=open;strokeColor=#FF0000;endFill=1;rounded=0" parent="2" source="8" target="10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="38" value="" style="ellipse;shape=endState;fillColor=#000000;strokeColor=#ff0000" parent="2" vertex="1">
+          <mxGeometry x="355" y="850" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="10VoKkZzMrB7BITPwusA-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;strokeColor=#FF0000;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="2" source="10VoKkZzMrB7BITPwusA-41" target="5iCQtoHrXtxz1YSjjW1o-40" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-38" value="Création de co&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;mpte&lt;/span&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="10VoKkZzMrB7BITPwusA-43">
+          <mxGeometry x="0.5391" y="1" relative="1" as="geometry">
+            <mxPoint x="-1" y="4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=#FF0000;" edge="1" parent="2" source="10VoKkZzMrB7BITPwusA-41" target="5iCQtoHrXtxz1YSjjW1o-46">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-48" value="Fermeture de compte" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="5iCQtoHrXtxz1YSjjW1o-47">
+          <mxGeometry x="0.5311" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="10VoKkZzMrB7BITPwusA-41" value="`Manage account" style="rhombus;whiteSpace=wrap;html=1;" parent="2" vertex="1">
+          <mxGeometry x="300" y="92" width="140" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fillColor=#f8cecc;strokeColor=light-dark(#f50800, #d7817e);gradientColor=#ea6b66;" edge="1" parent="2" source="5iCQtoHrXtxz1YSjjW1o-40" target="7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-42" value="Oui" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="5iCQtoHrXtxz1YSjjW1o-41">
+          <mxGeometry x="0.08" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontColor=#FF0000;strokeColor=#FF0000;" edge="1" parent="2" source="5iCQtoHrXtxz1YSjjW1o-40" target="8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-44" value="Non" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="5iCQtoHrXtxz1YSjjW1o-43">
+          <mxGeometry x="-0.5224" y="2" relative="1" as="geometry">
+            <mxPoint y="27" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-40" value="&lt;br&gt;Est-ce le premier compte du client?" style="rhombus;whiteSpace=wrap;html=1;spacing=7;" vertex="1" parent="2">
+          <mxGeometry x="65" y="190" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-49" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="2" source="5iCQtoHrXtxz1YSjjW1o-46" target="5iCQtoHrXtxz1YSjjW1o-50">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-46" value="Choisir le compte à fermer" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="2">
+          <mxGeometry x="520" y="190" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-57" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF0000;" edge="1" parent="2" source="5iCQtoHrXtxz1YSjjW1o-50" target="5iCQtoHrXtxz1YSjjW1o-56">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-58" value="Oui" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="5iCQtoHrXtxz1YSjjW1o-57">
+          <mxGeometry x="-0.5273" relative="1" as="geometry">
+            <mxPoint y="12" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-59" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="5iCQtoHrXtxz1YSjjW1o-57">
+          <mxGeometry x="-0.4545" y="6" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-66" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="2" source="5iCQtoHrXtxz1YSjjW1o-50" target="5iCQtoHrXtxz1YSjjW1o-60">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="460" y="345" />
+              <mxPoint x="460" y="595" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-67" value="Non" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="5iCQtoHrXtxz1YSjjW1o-66">
+          <mxGeometry x="-0.3234" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-50" value="Le compte a des fonds" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="2">
+          <mxGeometry x="525" y="305" width="110" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-61" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF0000;" edge="1" parent="2" source="5iCQtoHrXtxz1YSjjW1o-56" target="5iCQtoHrXtxz1YSjjW1o-60">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-56" value="Effectuer&lt;div&gt;une transaction au compte pour vider les fond restants&lt;/div&gt;" style="whiteSpace=wrap;html=1;" vertex="1" parent="2">
+          <mxGeometry x="520" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-63" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF0000;" edge="1" parent="2" source="5iCQtoHrXtxz1YSjjW1o-60" target="5iCQtoHrXtxz1YSjjW1o-62">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-60" value="Confirmer la sélection" style="whiteSpace=wrap;html=1;" vertex="1" parent="2">
+          <mxGeometry x="520" y="550" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-65" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="2" source="5iCQtoHrXtxz1YSjjW1o-62" target="38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5iCQtoHrXtxz1YSjjW1o-62" value="Confirmer la fermeture du compte" style="whiteSpace=wrap;html=1;" vertex="1" parent="2">
+          <mxGeometry x="520" y="650" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

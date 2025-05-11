@@ -1,0 +1,17 @@
+package bus;
+
+import java.util.Dictionary;
+import java.util.List;
+import java.util.function.Predicate;
+
+import bus.account.BankAccount;
+import bus.transaction.Transaction;
+
+public interface IRapportFinancier {
+	void checkClientActivity();
+	List<Transaction> checkTransactionDetails();
+	List<Transaction> checkTransactionDetails(Predicate<Transaction> filter);
+	
+	Dictionary<BankAccount, Double> checkAcountsBanlances();
+	Dictionary<BankAccount, Double> checkAcountsBanlances(Predicate<BankAccount> filter);
+}

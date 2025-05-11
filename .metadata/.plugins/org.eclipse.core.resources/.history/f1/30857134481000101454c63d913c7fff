@@ -1,0 +1,23 @@
+package client;
+
+import bus.service.Authentification;
+import bus.user.User;
+import client.helper.CLI;
+
+public class AuthUI {
+	
+	private AuthUI() {}
+	
+	public static User login() throws UIException {
+		var email = CLI.getString("Enter your email: ");
+		var password = CLI.getString("Enter your password: ");
+		User user;
+		try {
+			user = Authentification.Login(email, password);
+		} catch (Exception e) {
+			throw new UIException("Login failed: " + e.getMessage(), e);
+		}
+		return user;
+	}
+
+}

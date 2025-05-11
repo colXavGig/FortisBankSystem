@@ -1,0 +1,42 @@
+package bus.user;
+
+import java.util.List;
+
+import bus.account.BankAccount;
+import bus.transaction.Transaction;
+import bus.transaction.TransactionRecord;
+
+public interface IBankClient {
+	Integer getID();
+	void setID(Integer id);
+	
+	String getFirstname();
+	void setFirstname(String name);
+	
+	String getLastname();
+	void setLastname(String name);
+	
+	String getPIN();
+	void setPIN(String pin);
+	
+	String getAddress();
+	void setAddress(String address);
+	
+	String getTelephoneNumber();
+	void setTelephoneNumber(String number);
+	
+	String getEmail();
+	void setEmail(String email);
+	
+	List<BankAccount> getBankAccounts();
+	void setBankAccounts(List<BankAccount> list);
+	void addBankAccount(BankAccount account);
+	void removeBankAccount(BankAccount account);
+	BankAccount getBankAccount(int accountID);
+	// makeTransaction( new TRansacxt, account 1, acccount2)
+	void makeTransaction(Transaction transact, BankAccount account) throws Exception;
+	Double checkBalance(BankAccount account);
+	List<TransactionRecord> checkTransactionsHistory();
+	List<TransactionRecord> checkTransactionsHistory(BankAccount account);
+	String getInfos();
+}

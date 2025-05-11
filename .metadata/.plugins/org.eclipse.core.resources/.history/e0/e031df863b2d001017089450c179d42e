@@ -1,0 +1,13 @@
+package client.bankClient.accountManager;
+
+import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
+
+public class DepositView extends JPanel {
+
+	public DepositView() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

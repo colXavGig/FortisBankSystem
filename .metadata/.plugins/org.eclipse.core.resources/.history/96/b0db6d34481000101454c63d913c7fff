@@ -1,0 +1,22 @@
+package bus.service;
+
+import bus.user.User;
+import utils.UserCollection;
+
+public class Authentification {
+
+	private Authentification() {} // removing public constructor
+	
+	public static User Login(String email, String nip) throws Exception {
+		
+		var users = UserCollection.getInstance().filter(u -> {
+			return u.getEmail().equalsIgnoreCase(email);
+		});
+		
+		if (users.size() == 1 && users.get(0).getPIN().equals(nip))  
+			return users.get(0);
+		else {
+			throw new Exception("Invalid ");
+		}
+	}
+}

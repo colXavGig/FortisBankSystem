@@ -1,0 +1,6 @@
+package bus.user.notification;
+
+public enum TaskAction {
+	CREATION,
+	DELETION,
+}

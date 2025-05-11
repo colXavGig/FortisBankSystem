@@ -1,0 +1,83 @@
+package client.bankClient;
+
+import java.awt.CardLayout;
+import java.awt.LayoutManager;
+import java.util.List;
+import java.util.Stack;
+
+import javax.swing.JPanel;
+
+import bus.model.account.BankAccount;
+import client.bankClient.accountCreator.CreateAccountView;
+import client.bankClient.accountManager.BankAccountManagerView;
+
+public class BankAccountActionView extends JPanel {
+
+	private List<BankAccount> accounts;
+	
+	private CardLayout panelSwitcher;
+	private JPanel mainPanel;
+	private Stack<String> navHistory;
+	
+	private static final long serialVersionUID = -6488005888038943357L;
+	
+	ClientDashboard parent;
+
+	public BankAccountActionView(ClientDashboard parent) {
+		super();
+		init(parent);
+	}
+	
+	public void setAccounts(List<BankAccount> accounts) {
+		this.accounts = accounts;
+	}
+	
+	private void init(ClientDashboard parentDashboard ) {
+		parent = parentDashboard;
+
+		navHistory = new Stack<String>();
+		
+		var accountCreator = new CreateAccountView(this);
+		add(accountCreator);
+		panelSwitcher = new CardLayout();
+		mainPanel = new JPanel(panelSwitcher);
+		
+		var accountManager = new BankAccountManagerView();
+		mainPanel.add(accountManager, "Account manager");
+		
+		mainPanel.add(initActionSelector(), "Action selector");
+
+		
+		add(mainPanel);
+		
+		
+	}
+	
+	void showAccountCreator() {
+		var panelName = "Account creator";
+		showPanel(panelName);
+	}
+	
+	private void showPanel(String panelName) {
+		navHistory.push(panelName);
+		panelSwitcher.show(mainPanel, panelName);
+	}
+	
+	void navBack() {
+		navHistory.pop();
+		panelSwitcher.show(mainPanel, navHistory.peek());
+	}
+	
+	public void createAccount(BankAccount account) {
+		parent.createBankAccount(account);
+	}
+
+	JPanel initActionSelector() {
+		var selector = new JPanel();
+		
+		return selector;
+	}
+	
+
+
+}

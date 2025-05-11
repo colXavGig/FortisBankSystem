@@ -1,0 +1,54 @@
+package client;
+
+import java.awt.CardLayout;
+import java.awt.GraphicsConfiguration;
+import java.awt.HeadlessException;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class MainFrame extends JFrame {
+
+	CardLayout paneSwitcher;
+	
+	AuthPanel loginAuthPanel;
+	RegisterPanel registerPanel;
+	private static final long serialVersionUID = 5024129478181767841L;
+
+	public MainFrame() throws HeadlessException {
+		init();
+	}
+
+	public MainFrame(GraphicsConfiguration gc) {
+		super(gc);
+		init();
+	}
+
+	public MainFrame(String title) throws HeadlessException {
+		super(title);
+		init();
+	}
+
+	public MainFrame(String title, GraphicsConfiguration gc) {
+		super(title, gc);
+		init();
+	}
+	
+	private void init() {
+		paneSwitcher = new CardLayout();
+		setLayout(paneSwitcher);
+		
+		setSize(500, 540);
+		loginAuthPanel= new AuthPanel(this);
+		add(loginAuthPanel);
+		registerPanel = new RegisterPanel(this);
+		add(registerPanel);		
+		
+		setVisible(true);
+	}
+
+	public static void main(String[] args) {
+		var frame = new MainFrame();
+	}
+
+}

@@ -1,0 +1,26 @@
+package client.bankManager;
+
+import java.util.List;
+
+import javax.swing.JPanel;
+
+import bus.model.notification.Task;
+
+public class WorkOnTaskView extends JPanel {
+
+	private static final long serialVersionUID = 6846702592768625644L;
+	
+	private ManagerDashboard parentView;
+	private List<Task> tasks;
+
+	public WorkOnTaskView(ManagerDashboard parent) {
+		parentView = parent;
+		
+		
+	}
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
+	}
+
+}

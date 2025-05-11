@@ -1,0 +1,60 @@
+package client.bankClient.accountManager;
+
+import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.JPanel;
+import javax.swing.ListModel;
+import javax.swing.event.ListDataListener;
+
+import bus.model.transaction.TransactionRecord;
+
+import javax.swing.AbstractListModel;
+import javax.swing.JButton;
+import javax.swing.JList;
+
+public class TransactionHistoryView extends JPanel {
+
+	private static final long serialVersionUID = 5241904740849819011L;
+	
+	private List<TransactionRecord> historyList;
+
+	public TransactionHistoryView(BankAccountManagerView parent) {
+		setLayout(null);
+		
+		JButton backBtn = new JButton("Back");
+		backBtn.setBounds(10, 11, 89, 23);
+		backBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				parent.nav
+			}
+		});
+		add(backBtn);
+		
+		JList<TransactionRecord> historyViewer = new JList<TransactionRecord>();
+		historyViewer.setModel(new AbstractListModel<TransactionRecord>() {
+			private static final long serialVersionUID = 6857777042637167003L;
+
+			@Override
+			public int getSize() {
+				return historyList.size();
+			}
+
+			@Override
+			public TransactionRecord getElementAt(int index) {
+				return historyList.get(index);
+			}
+		});
+		historyViewer.setBounds(35, 57, 375, 209);
+		add(historyViewer);
+		
+	}
+
+	public void setHistoryList(List<TransactionRecord> historyList) {
+		this.historyList = historyList;
+	}
+}

@@ -1,0 +1,28 @@
+package client.bankClient.accountManager;
+
+import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
+
+public class TransactionMakerView extends JPanel {
+
+	public TransactionMakerView() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public TransactionMakerView(LayoutManager layout) {
+		super(layout);
+		// TODO Auto-generated constructor stub
+	}
+
+	public TransactionMakerView(boolean isDoubleBuffered) {
+		super(isDoubleBuffered);
+		// TODO Auto-generated constructor stub
+	}
+
+	public TransactionMakerView(LayoutManager layout, boolean isDoubleBuffered) {
+		super(layout, isDoubleBuffered);
+		// TODO Auto-generated constructor stub
+	}
+
+}

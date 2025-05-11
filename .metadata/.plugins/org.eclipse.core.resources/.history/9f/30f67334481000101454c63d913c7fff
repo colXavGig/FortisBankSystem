@@ -1,0 +1,33 @@
+package test;
+
+import static org.junit.Assert.*;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import org.junit.Test;
+
+import bus.Currency;
+import bus.account.BankAccount;
+import bus.account.CheckingAccount;
+import bus.account.CreditAccount;
+import bus.account.CurrencyAccount;
+import bus.account.SavingAccount;
+
+public class businessTest {
+
+	@Test
+	public void testCheckingInit() {
+		List<BankAccount> accounts = new LinkedList<BankAccount>();
+		accounts.add(new CheckingAccount());
+		accounts.add(new CreditAccount(2000, 0.05));
+		accounts.add(new CurrencyAccount(Currency.USD));
+		accounts.add(new SavingAccount(0.02));
+		
+		for (var acc : accounts) {
+			assertTrue(0 == acc.getBalance());
+		}
+		
+	}
+
+}

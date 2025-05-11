@@ -1,0 +1,67 @@
+package client.bankClient;
+
+import java.awt.LayoutManager;
+import java.util.List;
+
+import javax.swing.JPanel;
+
+import bus.model.notification.ClientNotification;
+import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
+
+public class ViewNotificationPanel extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private List<ClientNotification> notifs;
+
+	public ViewNotificationPanel() {
+		super();
+		setLayout(null);
+		
+		init();
+	}
+
+	public ViewNotificationPanel(LayoutManager layout) {
+		super(layout);
+		init();
+	}
+
+	public ViewNotificationPanel(boolean isDoubleBuffered) {
+		super(isDoubleBuffered);
+		init();
+	}
+
+	public ViewNotificationPanel(LayoutManager layout, boolean isDoubleBuffered) {
+		super(layout, isDoubleBuffered);
+		init();
+	}
+
+	public void setNotifs(List<ClientNotification> notifs) {
+		this.notifs = notifs;
+	}
+	
+	private void init() {
+		JButton backBtn = new JButton("Back");
+		backBtn.setBounds(21, 11, 55, 23);
+		add(backBtn);
+		
+		JList<ClientNotification> list = new JList<ClientNotification>();
+		list.setModel(new AbstractListModel<ClientNotification>() {
+			List<ClientNotification> values = notifs;
+			public int getSize() {
+				return values.size();
+			}
+			public ClientNotification getElementAt(int index) {
+				return values.get(index);
+			}
+		});
+		list.setBounds(10, 49, 430, 240);
+		add(list);
+
+	}
+}

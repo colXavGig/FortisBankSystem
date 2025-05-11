@@ -1,0 +1,14 @@
+package client.bankManager;
+
+import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
+
+public class TransactionDetailsView extends JPanel {
+
+	public TransactionDetailsView() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+}

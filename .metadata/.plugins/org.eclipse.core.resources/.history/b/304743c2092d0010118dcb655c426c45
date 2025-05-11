@@ -1,0 +1,9 @@
+package client.bankClient;
+
+public class CurrencyAccountCreatorView {
+
+	public CurrencyAccountCreatorView() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

@@ -1,0 +1,51 @@
+package client.bankClient.accountManager;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import bus.model.account.BankAccount;
+
+public class CheckBalanceView extends JPanel {
+
+	private static final long serialVersionUID = 6690695178991508007L;
+	private JTextField accountNum_textField;
+	private JTextField balance_textField;
+	
+	private BankAccount account;
+
+	public CheckBalanceView() {
+		setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Account Number:");
+		lblNewLabel.setBounds(55, 58, 83, 14);
+		add(lblNewLabel);
+		
+		JLabel lblBalance = new JLabel("Balance:");
+		lblBalance.setBounds(55, 95, 83, 14);
+		add(lblBalance);
+		
+		accountNum_textField = new JTextField();
+		accountNum_textField.setEditable(false);
+		accountNum_textField.setBounds(206, 55, 112, 20);
+		add(accountNum_textField);
+		accountNum_textField.setColumns(10);
+		
+		balance_textField = new JTextField();
+		balance_textField.setEditable(false);
+		balance_textField.setColumns(10);
+		balance_textField.setBounds(206, 92, 112, 20);
+		add(balance_textField);
+		
+		setVisible(true);
+	}
+	
+	public void setAccount(BankAccount account) {
+		this.account = account;
+		accountNum_textField.setText(""+account.getID());
+		balance_textField.setText(""+account.getBalance());
+	}
+	
+	
+
+}

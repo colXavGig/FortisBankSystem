@@ -1,0 +1,80 @@
+package client.bankClient;
+
+import java.awt.CardLayout;
+import java.awt.LayoutManager;
+import java.util.Stack;
+
+import javax.swing.JPanel;
+
+import bus.model.account.BankAccount;
+import bus.model.user.BankClient;
+
+public class ClientDashboard extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3720142767536763478L;
+	
+	private BankClient client;
+	private JPanel mainPanel;
+	private CardLayout panelSwitcher;
+	
+	Stack<String> navHistory;
+	
+	private ViewNotificationPanel notifPanel;
+	
+	public ClientDashboard() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public ClientDashboard(boolean isDoubleBuffered) {
+		super(isDoubleBuffered);
+		init();
+	}
+
+	public ClientDashboard(LayoutManager layout, boolean isDoubleBuffered) {
+		super(layout, isDoubleBuffered);
+		init();
+	}
+
+
+	public void setClient(BankClient client) {
+		this.client = client;
+		init();
+	}
+	
+	private void init() {
+		navHistory = new Stack<String>();
+		
+		panelSwitcher = new CardLayout();
+		mainPanel = new JPanel(panelSwitcher);
+		
+		notifPanel = new ViewNotificationPanel(this);
+		mainPanel.add(notifPanel, "Notif panel");
+		
+		
+		
+		add(mainPanel);
+		setVisible(true);
+	}
+
+	void showNotifs() {
+		assert(client != null);
+		var panelName = "Notif panel";
+		notifPanel.setNotifs(client.getNotifications());
+		panelSwitcher.show(mainPanel, panelName);
+		navHistory.add(panelName);
+	}
+	
+	void navBack() {
+		var backPanel = navHistory.pop();
+		panelSwitcher.show(mainPanel, backPanel);
+	}
+	
+	void createBankAccount(BankAccount account) {
+		client.addBankAccount(account);
+	}
+	
+}

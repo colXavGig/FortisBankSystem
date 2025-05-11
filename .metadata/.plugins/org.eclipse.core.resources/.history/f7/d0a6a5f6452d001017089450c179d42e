@@ -1,0 +1,11 @@
+package client.bankClient.accountManager;
+
+import javax.swing.JPanel;
+
+public class CheckBalanceView extends JPanel {
+
+	public CheckBalanceView() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

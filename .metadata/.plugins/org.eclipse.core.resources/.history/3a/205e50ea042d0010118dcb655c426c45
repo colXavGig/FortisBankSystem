@@ -1,0 +1,81 @@
+package client.bankClient;
+
+import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.JPanel;
+
+import bus.model.notification.ClientNotification;
+import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
+
+public class ViewNotificationPanel extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private JPanel parent;
+	
+	private List<ClientNotification> notifs;
+
+	public ViewNotificationPanel(JPanel parent) {
+		super();
+		setLayout(null);
+		
+		init(parent);
+	}
+
+	public ViewNotificationPanel(JPanel parent, LayoutManager layout) {
+		super(layout);
+		init(parent);
+	}
+
+	public ViewNotificationPanel(JPanel parent, boolean isDoubleBuffered) {
+		super(isDoubleBuffered);
+		init(parent);
+	}
+
+	public ViewNotificationPanel(JPanel parent, LayoutManager layout, boolean isDoubleBuffered) {
+		super(layout, isDoubleBuffered);
+		init(parent);
+	}
+
+	public void setNotifs(List<ClientNotification> notifs) {
+		this.notifs = notifs;
+	}
+	
+	private void init(JPanel parentPanel) {
+		parent = parentPanel;
+		
+		JButton backBtn = new JButton("Back");
+		backBtn.setBounds(21, 11, 55, 23);
+		backBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		add(backBtn);
+		
+		JList<ClientNotification> list = new JList<ClientNotification>();
+		list.setModel(new AbstractListModel<ClientNotification>() {
+			private static final long serialVersionUID = -539701425473207436L;
+			List<ClientNotification> values = notifs;
+			public int getSize() {
+				return values.size();
+			}
+			public ClientNotification getElementAt(int index) {
+				return values.get(index);
+			}
+		});
+		list.setBounds(10, 49, 430, 240);
+		add(list);
+
+	}
+}

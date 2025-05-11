@@ -1,0 +1,9 @@
+package client.bankClient;
+
+public class SavingAccountCreatorView {
+
+	public SavingAccountCreatorView() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

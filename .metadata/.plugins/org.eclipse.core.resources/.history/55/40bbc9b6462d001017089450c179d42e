@@ -1,0 +1,12 @@
+package client.bankClient.accountManager;
+
+import javax.swing.JPanel;
+
+public class CheckBalanceView extends JPanel {
+
+	private static final long serialVersionUID = 6690695178991508007L;
+
+	public CheckBalanceView() {
+	}
+
+}

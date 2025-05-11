@@ -1,0 +1,42 @@
+package client.bankClient;
+
+import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
+
+import bus.model.user.BankClient;
+
+public class ClientDashboard extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3720142767536763478L;
+	
+	private BankClient client;
+
+	public ClientDashboard() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public ClientDashboard(LayoutManager layout) {
+		super(layout);
+		// TODO Auto-generated constructor stub
+	}
+
+	public ClientDashboard(boolean isDoubleBuffered) {
+		super(isDoubleBuffered);
+		// TODO Auto-generated constructor stub
+	}
+
+	public ClientDashboard(LayoutManager layout, boolean isDoubleBuffered) {
+		super(layout, isDoubleBuffered);
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public void setClient(BankClient client) {
+		this.client = client;
+	}
+
+}

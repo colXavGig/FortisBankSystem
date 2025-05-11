@@ -1,0 +1,85 @@
+package bus.user;
+
+public abstract class User implements java.io.Serializable {
+
+	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8171890540837316899L;
+	// Attributs
+
+	
+	private Integer id;
+    private String nom;
+    private String prenom;
+    private String nip;
+    private String adresse;
+    private String email;
+    private String telephone;
+
+    public User(Integer id, String nom, String prenom, String nip, String adresse, String email, String telephone) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.nip = nip;
+        this.adresse = adresse;
+        this.setEmail(email);
+        this.telephone = telephone;
+    }
+
+    public Integer getID() {
+        return id;
+    }
+    public void setID(Integer id) {
+    	this.id = id;
+    }
+
+	public String getLastname() {
+		return nom;
+	}
+	public void setLastname(String name) {
+		nom = name;
+	}
+
+	public String getFirstname() {
+		return prenom;
+	}
+	public void setFirstname(String name) {
+		this.prenom = name;
+	}
+
+	public String getPIN() {
+		return nip;
+	}
+	public void setPIN(String pin) {
+		nip = pin;
+	}
+	
+	public String getAddress() {
+		return adresse;
+	}
+	public void setAddress(String address) {
+		adresse = address;
+	}
+
+
+	public String getTelephoneNumber() {
+		return telephone;
+	}
+	public void setTelephoneNumber(String number) {
+		telephone = number;		
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public abstract String getInfos();
+}
+ 

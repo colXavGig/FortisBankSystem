@@ -1,0 +1,202 @@
+package client;
+
+import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import bus.model.user.BankClient;
+import bus.model.user.BankManager;
+import bus.model.user.User;
+import bus.model.user.UserType;
+import bus.service.Authentification;
+
+public class RegisterPanel extends JPanel {
+
+	
+	private static final long serialVersionUID = 5818133698486830709L;
+	private MainFrame parentFrame;
+	private JTextField firstnameField;
+	private JTextField lastnameField;
+	private JTextField nipField;
+	private JTextField emailField;
+	private JTextField phoneField;
+	private JTextArea adressTextArea;
+	private JComboBox<UserType> userType_ComboBox;
+
+	/**
+	 * @wbp.parser.constructor
+	 */
+	public RegisterPanel(MainFrame parent) {
+		init(parent);
+	}
+
+	public RegisterPanel(MainFrame parent, LayoutManager layout) {
+		super(layout);
+		init(parent);
+	}
+
+	public RegisterPanel(MainFrame parent, boolean isDoubleBuffered) {
+		super(isDoubleBuffered);
+		init(parent);
+	}
+
+	public RegisterPanel(MainFrame parent, LayoutManager layout, boolean isDoubleBuffered) {
+		super(layout, isDoubleBuffered);
+		init(parent);
+	}
+	
+	private void init(MainFrame parent) {
+		parentFrame = parent;
+		
+		
+		setLayout(null);
+		
+		JButton loginBtn = new JButton("Login");
+		loginBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				parentFrame.showLogin();
+			}
+		});
+		loginBtn.setBounds(162, 271, 89, 23);
+		add(loginBtn);
+		
+		JButton registerBtn = new JButton("Register");
+		registerBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				register();
+			}
+		});
+		registerBtn.setBounds(379, 271, 89, 23);
+		add(registerBtn);
+		
+		JLabel lblNewLabel = new JLabel("User type");
+		lblNewLabel.setBounds(87, 26, 78, 14);
+		add(lblNewLabel);
+		
+		userType_ComboBox = new JComboBox<UserType>();
+		userType_ComboBox.setModel(new DefaultComboBoxModel<UserType>(UserType.values()));
+		userType_ComboBox.setBounds(192, 22, 96, 22);
+		add(userType_ComboBox);
+		
+		JLabel lblNewLabel_1 = new JLabel("Firstname:");
+		lblNewLabel_1.setBounds(85, 51, 80, 14);
+		add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Lastname:");
+		lblNewLabel_1_1.setBounds(322, 51, 80, 14);
+		add(lblNewLabel_1_1);
+		
+		JLabel lblNewLabel_1_2 = new JLabel("PIN:");
+		lblNewLabel_1_2.setBounds(322, 95, 80, 14);
+		add(lblNewLabel_1_2);
+		
+		JLabel lblNewLabel_1_3 = new JLabel("Address:");
+		lblNewLabel_1_3.setBounds(85, 184, 80, 14);
+		add(lblNewLabel_1_3);
+		
+		JLabel lblNewLabel_1_4 = new JLabel("Email:");
+		lblNewLabel_1_4.setBounds(85, 95, 80, 14);
+		add(lblNewLabel_1_4);
+		
+		JLabel lblNewLabel_1_5 = new JLabel("Phone:");
+		lblNewLabel_1_5.setBounds(85, 144, 80, 14);
+		add(lblNewLabel_1_5);
+		
+		firstnameField = new JTextField();
+		firstnameField.setBounds(192, 55, 86, 20);
+		add(firstnameField);
+		firstnameField.setColumns(10);
+		
+		lastnameField = new JTextField();
+		lastnameField.setColumns(10);
+		lastnameField.setBounds(412, 48, 86, 20);
+		add(lastnameField);
+		
+		nipField = new JTextField();
+		nipField.setColumns(10);
+		nipField.setBounds(412, 92, 86, 20);
+		add(nipField);
+		
+		emailField = new JTextField();
+		emailField.setColumns(10);
+		emailField.setBounds(192, 92, 86, 20);
+		add(emailField);
+		
+		phoneField = new JTextField();
+		phoneField.setColumns(10);
+		phoneField.setBounds(192, 141, 86, 20);
+		add(phoneField);
+		
+		adressTextArea = new JTextArea();
+		adressTextArea.setBounds(192, 179, 276, 59);
+		add(adressTextArea);
+		
+		setVisible(true);
+	}
+	
+	private void register() {
+		User newUser = null;
+
+		UserType choice = this.userType_ComboBox.getItemAt(userType_ComboBox.getSelectedIndex());
+		var firstName = firstnameField.getText();
+		var lastName = lastnameField.getText();
+		var nip = nipField.getText();
+		var address = adressTextArea.getText();
+		var email = emailField.getText();
+		var telephone = phoneField.getText();
+		switch (choice.ordinal()) {
+			case 0: newUser = new BankClient(1000,
+					lastName, 
+					firstName, 
+					nip, 
+					address, 
+					email, 
+					telephone 
+					);
+			break;
+			case 1: newUser = new BankManager(0, 
+					lastName, 
+					firstName, 
+					nip, 
+					address, 
+					email, 
+					telephone, 
+					"admin"
+					);
+			break;
+			default: JOptionPane.showMessageDialog(this, "Invalid user type"); return;
+		}
+		try {
+			Authentification.register(newUser);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "Could not register user");
+			newUser = null;
+			return;
+		}
+		if (JOptionPane.showConfirmDialog(this, "User created.%nLogin?") == JOptionPane.YES_OPTION) {
+			parentFrame.showLogin();
+		} else {
+			newUser = null;
+			clearTxt();
+		}
+			
+	}
+	
+	private void clearTxt() {
+		firstnameField.setText("");
+		lastnameField.setText("");
+		phoneField.setText("");
+		adressTextArea.setText("");
+		nipField.setText("");
+		emailField.setText("");
+	}
+}

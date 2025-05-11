@@ -1,0 +1,38 @@
+package client.bankClient.accountManager;
+
+import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
+
+import bus.model.account.BankAccount;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+
+public class TransactionMakerView extends JPanel {
+	
+	private BankAccount account;
+	private BankAccountManagerView parentView;
+	
+
+	public TransactionMakerView(BankAccountManagerView parent) {
+		setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Transaction type:");
+		lblNewLabel.setBounds(47, 41, 98, 14);
+		add(lblNewLabel);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(153, 39, 169, 18);
+		add(comboBox);
+		parentView = parent;
+		
+		
+	}
+
+
+	public void setAccount(BankAccount account) {
+		this.account = account;
+	}
+
+
+}

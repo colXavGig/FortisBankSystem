@@ -1,0 +1,127 @@
+package client;
+
+import java.awt.CardLayout;
+import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+import bus.BusinessException;
+import bus.model.user.BankClient;
+import bus.model.user.BankManager;
+import bus.service.Authentification;
+import dto.UserDTO;
+import utils.UserCollection;
+
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
+
+public class RegisterPanel extends JPanel {
+
+	
+	private static final long serialVersionUID = 5818133698486830709L;
+	private JTextField emailField;
+	private JTextField passwdField;
+
+	/**
+	 * @wbp.parser.constructor
+	 */
+	public RegisterPanel(MainFrame parent) {
+		init(parent);
+	}
+
+	public RegisterPanel(MainFrame parent, LayoutManager layout) {
+		super(layout);
+		init(parent);
+	}
+
+	public RegisterPanel(MainFrame parent, boolean isDoubleBuffered) {
+		super(isDoubleBuffered);
+		init(parent);
+	}
+
+	public RegisterPanel(MainFrame parent, LayoutManager layout, boolean isDoubleBuffered) {
+		super(layout, isDoubleBuffered);
+		init(parent);
+	}
+	
+	private void init(MainFrame parent) {
+		parentFrame = parent;
+		
+		
+		setLayout(null);
+		JLabel lblNewLabel = new JLabel("Email:");
+		lblNewLabel.setBounds(87, 102, 46, 14);
+		add(lblNewLabel);
+		
+		emailField = new JTextField();
+		emailField.setBounds(180, 99, 126, 20);
+		add(emailField);
+		emailField.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("Password:");
+		lblNewLabel_1.setBounds(87, 140, 46, 14);
+		add(lblNewLabel_1);
+		
+		passwdField = new JTextField();
+		passwdField.setBounds(180, 137, 126, 20);
+		add(passwdField);
+		passwdField.setColumns(10);
+		
+		JButton loginBtn = new JButton("Login");
+		loginBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				parent.mainPanel = new AuthPanel(parent);
+			}
+		});
+		loginBtn.setBounds(87, 192, 89, 23);
+		add(loginBtn);
+		
+		JButton registerBtn = new JButton("Register");
+		registerBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// change panel of parent to register panel
+			}
+		});
+		registerBtn.setBounds(217, 192, 89, 23);
+		add(registerBtn);
+		
+		setVisible(true);
+	}
+	
+	private void login() {
+		String email = emailField.getText();
+		String password = passwdField.getText();
+		
+		UserDTO user = null;
+		try {
+			user = Authentification.Login(email, password);
+			
+			BankManager manager = null;
+			BankClient client = null;
+			
+			client = UserCollection.getInstance().getClientById(user.id());
+			manager = UserCollection.getInstance().getManagerById(user.id());
+			
+			if (client != null) {
+				// change panel of parent to client dashboard
+			} else if (manager != null) {
+				// change panel of parent to manager dashboard
+			} else {
+				throw new ClientException("Invalid user");
+			}
+			
+		} catch (BusinessException e) {
+			JOptionPane.showMessageDialog(this, "Invalid crednetials");
+		} catch (ClientException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage());
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage());
+		}
+		
+	}
+}

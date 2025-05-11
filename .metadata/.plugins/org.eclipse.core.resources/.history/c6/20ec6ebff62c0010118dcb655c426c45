@@ -1,0 +1,82 @@
+package client;
+
+import java.awt.CardLayout;
+import java.awt.GraphicsConfiguration;
+import java.awt.HeadlessException;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import client.bankClient.ClientDashboard;
+import client.bankManager.ManagerDashboard;
+
+public class MainFrame extends JFrame {
+
+	CardLayout paneSwitcher;
+	JPanel mainPanel;
+	
+	AuthPanel loginAuthPanel;
+	RegisterPanel registerPanel;
+	
+	ClientDashboard clientDashboard;
+	ManagerDashboard managerDashboard;
+	
+	private static final long serialVersionUID = 5024129478181767841L;
+
+	public MainFrame() throws HeadlessException {
+		init();
+	}
+
+	public MainFrame(GraphicsConfiguration gc) {
+		super(gc);
+		init();
+	}
+
+	public MainFrame(String title) throws HeadlessException {
+		super(title);
+		init();
+	}
+
+	public MainFrame(String title, GraphicsConfiguration gc) {
+		super(title, gc);
+		init();
+	}
+	
+	private void init() {
+		paneSwitcher = new CardLayout();
+		setLayout(paneSwitcher);
+		
+		setSize(500, 540);
+		
+		loginAuthPanel= new AuthPanel(this);
+		add(loginAuthPanel, "Login");
+		
+		registerPanel = new RegisterPanel(this);
+		add(registerPanel, "Register");
+		
+		clientDashboard = new ClientDashboard();
+		add(clientDashboard, "Client dashboard");
+		
+		managerDashboard = new ManagerDashboard();
+		add(managerDashboard, "Manager dashboard");
+		
+		//add(mainPanel);
+		
+		setVisible(true);
+	}
+	
+	public void showLogin() {
+		paneSwitcher.show(this, "Login");
+	}
+	
+	public void showRegister() {
+		paneSwitcher.show(this, "Register");
+	}
+	
+	
+
+	public static void main(String[] args) {
+		var frame = new MainFrame();
+	}
+
+}

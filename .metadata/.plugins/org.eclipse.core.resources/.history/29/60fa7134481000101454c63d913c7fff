@@ -1,0 +1,173 @@
+package client;
+
+import java.io.IOException;
+import java.time.OffsetDateTime;
+import java.util.Iterator;
+import java.util.List;
+
+import bus.transaction.TransactionRecord;
+import bus.user.BankManager;
+import bus.user.notification.Task;
+import client.helper.CLI;
+import utils.BankAccountCollection;
+import utils.TransactionRecordCollection;
+
+public class ManagerDashboard {
+	
+	private BankManager manager;
+	
+	public ManagerDashboard(BankManager manager) {
+		this.manager = manager;
+	}
+	
+	public void display() {
+		System.out.println("Welcome to the Manager Dashboard!");
+		mainMenu();
+	}
+	
+	private void mainMenu() {
+		boolean hasTaskTodo = false;
+		int option = 0;
+		while (true) {
+			try {
+				hasTaskTodo = manager.hasTaskTodo();
+				if (hasTaskTodo)
+					System.out.print("There is tasks that needs to be completed");
+				else
+					System.out.println("All tasks are completed");
+			} catch (Exception e) {
+				System.out.println("Could not check if there is task to be done");
+			}
+			System.out.println("%d. Work on tasks".formatted(++option));
+			System.out.println("%d. Check transactions details".formatted(++option));
+			System.out.println("%d. Check account balance".formatted(++option));
+			System.out.println("%d. Exit".formatted(++option));
+			
+			int choice = Integer.parseInt(CLI.getString("Enter your choice: "));
+			CLI.clear();
+			switch (choice) {
+				case 1:
+					workOnTasks();
+					break;
+				case 2:
+					checkTransactionDetails();
+					break;
+				case 3:
+					checkAllAccountBalance();
+				case 4:
+					return;
+				default:
+					System.out.println("Invalid choice. Please try again.");
+					CLI.promptEnterToClear();
+					break;
+			}
+			
+		}
+	}
+	
+	private void checkAllAccountBalance() {
+		BankAccountCollection accountCollection = null;
+		try {
+			accountCollection  = BankAccountCollection.getInstance();
+		} catch (ClassNotFoundException | IOException e) {
+			System.out.println("Could not load account");
+			e.printStackTrace();
+			return;
+		}
+		System.out.println("Account ID | Balance");
+		System.out.println("--------------------");
+		for (var account : accountCollection.getData()) {
+			System.out.println("%s : %f".formatted(account.getID(), account.getBalance()));
+		}
+		
+		CLI.promptEnterToClear();
+	}
+
+	private void checkTransactionDetails() {
+		System.out.println("Checking Transaction details...");
+		List<TransactionRecord> transactionRecords = null;
+		try {
+			transactionRecords = TransactionRecordCollection.getInstance().getData();
+		} catch (Exception e) {
+			System.out.println("Could not load transactions");
+			CLI.promptEnterToClear();
+			return;
+		}
+		
+		int offset = 0;
+		final int pageLenght = 10;
+		var choice = "p";
+		
+		while (choice.equalsIgnoreCase("p") || choice.equalsIgnoreCase("n")) {
+			var curr = transactionRecords.subList(offset, offset + pageLenght);
+			for (var transact : curr)  {
+				System.out.println(transact.toString());
+			}
+			System.out.println("[N] : Next \t\t\t\t [P] : Previous");
+			choice = CLI.getString("");
+			if (choice.equals("p")) {
+				offset -= (offset >= pageLenght-1) ? pageLenght : offset;
+			} else if (choice.equalsIgnoreCase("n")) {
+				offset += (offset <= transactionRecords.size() - pageLenght - 1) ? 
+					pageLenght : 
+					transactionRecords.size()-1 - pageLenght - offset;
+			}
+		}
+		CLI.clear();
+	}
+
+	private void workOnTasks() {
+		var choice= -1;
+		while (choice != 2) {
+			int option = 0;
+			System.out.println("%d. Next task".formatted(++option));
+			System.out.println("%d. Back".formatted(++option));
+			choice = Integer.parseInt(CLI.getString(null));
+			Task nextTask = null;
+			try {
+				if (!manager.hasTaskTodo()) {
+					System.out.println("All task  are completed");
+					CLI.promptEnterToClear();
+					return;
+				} else {
+					nextTask = manager.getNextTask();
+				}
+			} catch (Exception e) {
+				System.out.println("Could not load tasks");
+			}
+			switch(choice) {
+				case 1: 
+					completeTask(nextTask);
+					break;
+				case 2: 
+					CLI.clear();
+					return;
+				default:
+					System.out.println("Invalid choice.");
+			}
+		}
+	}
+
+	private void completeTask(Task nextTask) {
+		System.out.println("Completing task...");
+		System.out.print("Task:");
+		System.out.println(nextTask.getMessage());
+		String choice = "";
+		do {
+			choice = CLI.getString("Do you approve the change? (y/n) ");
+		} while ( !choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n"));
+		
+		if (choice.equalsIgnoreCase("y")) {
+			try {
+				nextTask.approve();
+			} catch (ClassNotFoundException | IOException e) {
+				System.out.println("Could not approve task");
+				e.printStackTrace();
+			}
+		} else {
+			nextTask.refuse();
+		}
+		CLI.promptEnterToClear();
+	}
+
+}

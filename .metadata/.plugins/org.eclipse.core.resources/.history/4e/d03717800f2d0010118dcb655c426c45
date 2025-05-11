@@ -1,0 +1,19 @@
+package client.bankClient;
+
+import javax.swing.JPanel;
+
+import bus.model.account.SavingAccount;
+
+public class SavingAccountCreatorView extends JPanel {
+
+	private static final long serialVersionUID = 4176330582263312362L;
+	
+	private AddAccountView parent;
+	
+	private SavingAccount account;
+
+	public SavingAccountCreatorView(AddAccountView parent) {
+		this.parent = parent;
+	}
+
+}

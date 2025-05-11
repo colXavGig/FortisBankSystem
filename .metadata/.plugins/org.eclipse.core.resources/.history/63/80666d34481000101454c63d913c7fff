@@ -1,0 +1,62 @@
+package bus.account;
+
+import bus.transaction.Transaction;
+import bus.transaction.Transfer;
+import bus.transaction.Withdraw;
+
+import java.time.LocalDate;
+
+import bus.transaction.CreditInterest;
+
+public class CreditAccount extends BankAccount {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4445527086727120614L;
+	private Double creditLimit;
+    public Double getCreditLimit() {
+		return creditLimit;
+	}
+
+	public void setCreditLimit(Double creditLimit) {
+		this.creditLimit = creditLimit;
+	}
+
+	public Double getInterestRate() {
+		return interestRate;
+	}
+
+	public void setInterestRate(Double interestRate) {
+		this.interestRate = interestRate;
+	}
+
+	private Double interestRate;
+
+    public CreditAccount(double creditLimit, double interestRate) {
+        super();
+        this.creditLimit = creditLimit;
+        this.interestRate = interestRate;
+    }
+
+    public void applyInterest() throws Exception {
+        if (!interestApplied()) {
+        	doTransaction(new CreditInterest(interestRate));
+        }
+    }
+    
+    @Override
+    public void doTransaction(Transaction transaction) throws Exception {
+    	if ((transaction instanceof Withdraw || transaction instanceof Transfer )&&
+			getBalance() - transaction.getAmount() < -creditLimit) {
+				throw new Exception("%s exceeds credit limit".formatted(transaction.getClass().getName()));
+		}
+    	super.doTransaction(transaction);
+    }
+    
+    private boolean interestApplied() {
+		return getTransactionsHistory().stream()
+				.filter(t -> t.type().contains("Interest") && t.date().isAfter(LocalDate.now().minusMonths(1)))
+				.count() > 0;
+    }
+}
+ 

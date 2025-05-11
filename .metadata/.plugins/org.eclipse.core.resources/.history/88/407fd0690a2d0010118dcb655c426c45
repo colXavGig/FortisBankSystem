@@ -1,0 +1,64 @@
+package client.bankClient;
+
+import java.awt.CardLayout;
+import java.awt.LayoutManager;
+import java.util.List;
+import java.util.Stack;
+
+import javax.swing.JPanel;
+
+import bus.model.account.BankAccount;
+
+public class BankAccountManagerView extends JPanel {
+
+	private List<BankAccount> accounts;
+	
+	private CardLayout panelSwitcher;
+	private JPanel mainPanel;
+	private Stack<String> navHistory;
+	
+	private static final long serialVersionUID = -6488005888038943357L;
+	
+	ClientDashboard parent;
+
+	public BankAccountManagerView(ClientDashboard parent) {
+		super();
+		init(parent);
+	}
+	
+	public void setAccounts(List<BankAccount> accounts) {
+		this.accounts = accounts;
+	}
+	
+	private void init(ClientDashboard parentDashboard ) {
+		parent = parentDashboard;
+
+		navHistory = new Stack<String>();
+		panelSwitcher = new CardLayout();
+		mainPanel = new JPanel(panelSwitcher);
+		
+		var accountCreator = new AddAccountView(this);
+		mainPanel.add(accountCreator, "Account creator");
+		
+		
+	}
+	
+	void showAccountCreator() {
+		var panelName = "Account creator";
+		showPanel(panelName);
+	}
+	
+	private void showPanel(String panelName) {
+		navHistory.push(panelName);
+		panelSwitcher.show(mainPanel, panelName);
+	}
+	
+	void navBack() {
+		navHistory.pop();
+		panelSwitcher.show(mainPanel, navHistory.peek());
+	}
+	
+	
+
+
+}

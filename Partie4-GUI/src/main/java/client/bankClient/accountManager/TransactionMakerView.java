@@ -1,0 +1,117 @@
+package client.bankClient.accountManager;
+
+import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+import bus.BusinessException;
+import bus.model.account.BankAccount;
+import bus.model.transaction.ClientTransactionType;
+import bus.model.transaction.Transaction;
+
+public class TransactionMakerView extends JPanel {
+	
+	private BankAccount account;
+	private BankAccountManagerView parentView;
+	
+	private JComboBox<ClientTransactionType> type_comboBox;
+	private JPanel switchContainer;
+	private CardLayout panelSwitcher;
+	
+	private JButton makeBtn;
+	private TransferView transferView;
+	private DepositView depositView;
+	private WithdrawView withdrawView;
+	
+	
+	
+
+	public TransactionMakerView(BankAccountManagerView parent) {
+		parentView = parent;
+		setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Transaction type:");
+		lblNewLabel.setBounds(47, 41, 98, 14);
+		add(lblNewLabel);
+		
+		panelSwitcher = new CardLayout();
+		
+		switchContainer = new JPanel();
+		switchContainer.setBounds(47, 81, 350, 115);
+		add(switchContainer);
+		switchContainer.setLayout(panelSwitcher);
+		
+		
+		depositView = new DepositView();
+		switchContainer.add(depositView, ClientTransactionType.Deposit.name());
+		
+		withdrawView = new WithdrawView();
+		switchContainer.add(withdrawView, ClientTransactionType.Withdraw.name());
+		
+		transferView = new TransferView();
+		switchContainer.add(transferView, ClientTransactionType.Transfer.name());
+
+		type_comboBox = new JComboBox<ClientTransactionType>();
+		type_comboBox.setModel(new DefaultComboBoxModel<ClientTransactionType>(ClientTransactionType.values()));
+		type_comboBox.setBounds(153, 39, 98, 18);
+		type_comboBox.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "test");
+				
+				var selectedType = type_comboBox.getItemAt(type_comboBox.getSelectedIndex());
+				
+				panelSwitcher.show(switchContainer, selectedType.name());
+			}
+		});
+		add(type_comboBox);
+		
+		makeBtn = new JButton("Make transaction");
+		
+		makeBtn.setBounds(153, 207, 129, 23);
+		add(makeBtn);
+		
+		setVisible(true);
+	}
+
+
+	public void setAccount(BankAccount account) {
+		this.account = account;
+		makeBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				var selectedType = type_comboBox.getItemAt(type_comboBox.getSelectedIndex());
+
+				Transaction transaction = null;
+				if (selectedType == ClientTransactionType.Deposit) {
+					transaction = depositView.generateDeposit();
+				} else if (selectedType == ClientTransactionType.Withdraw) {
+					transaction = withdrawView.generateWithdraw();
+				} else {
+					transaction = transferView.generateTransfer();
+				}
+				
+				try {
+					account.doTransaction(transaction);
+				} catch (BusinessException e1) {
+					JOptionPane.showInternalMessageDialog(null, "Could not apply transaction.");
+					return;
+				}
+				JOptionPane.showConfirmDialog(null, "Transaction completed");
+				parentView.navBack();
+			}
+		});
+	}
+	
+	public void setAccountList(List<BankAccount> accounts) {
+		transferView.setAccounts(accounts);
+	}
+}

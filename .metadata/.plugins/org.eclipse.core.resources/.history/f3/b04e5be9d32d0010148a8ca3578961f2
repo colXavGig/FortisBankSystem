@@ -1,0 +1,114 @@
+package client.bankManager;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JPanel;
+
+import bus.BusinessException;
+import bus.model.notification.Task;
+import bus.model.user.BankManager;
+
+import javax.swing.JButton;
+import java.awt.CardLayout;
+import java.awt.GridLayout;
+import java.awt.HeadlessException;
+
+import javax.swing.JTextPane;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.BorderLayout;
+import javax.swing.JSplitPane;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.lang.invoke.VarHandle;
+import java.awt.event.ActionEvent;
+
+public class WorkOnTaskView extends JPanel {
+
+	private static final long serialVersionUID = 6846702592768625644L;
+	
+	private ManagerDashboard parentView;
+	private BankManager manager;
+	private Task currentTask;
+	private CardLayout panelSwitcher = new CardLayout();
+	private JPanel switcherContainer;
+	private JPanel taskView;
+	JLabel taskInfo_Label;
+
+	public WorkOnTaskView(ManagerDashboard parent, BankManager manager) {
+		super();
+		parentView = parent;
+		this.manager = manager;
+		setLayout(null);
+		
+		JButton backBtn = new JButton("Back");
+		backBtn.setBounds(10, 11, 89, 23);
+		add(backBtn);
+		
+		switcherContainer = new JPanel();
+		switcherContainer.setBounds(20, 45, 420, 244);
+		switcherContainer.setLayout(panelSwitcher);
+		add(switcherContainer);
+		
+		JPanel emptyListView = new JPanel();
+		emptyListView.setLayout(null);
+		switcherContainer.add(emptyListView, "Empty list");
+		
+		JLabel lblNewLabel = new JLabel("All tasks are completed");
+		lblNewLabel.setBounds(162, 109, 110, 14);
+		emptyListView.add(lblNewLabel);
+		
+		taskView = new JPanel();
+		taskView.setLayout(null);
+		switcherContainer.add(taskView, "Task todo");
+		
+		taskInfo_Label = new JLabel("[TASK INFO]");
+		taskInfo_Label.setHorizontalAlignment(SwingConstants.CENTER);
+		taskInfo_Label.setBounds(10, 11, 400, 127);
+		taskView.add(taskInfo_Label);
+		
+		JButton accept_Button = new JButton("Accept");
+		accept_Button.setBounds(65, 183, 89, 23);
+		taskView.add(accept_Button);
+		
+		JButton deny_Button = new JButton("Deny");
+		deny_Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				WorkOnTaskView.this.manager.
+			}
+		});
+		deny_Button.setBounds(250, 183, 89, 23);
+		taskView.add(deny_Button);
+		parentView = parent;
+		
+		
+	}
+
+	
+	private void updateView() {
+		
+		try {
+			if (manager.hasTaskTodo()) {
+				panelSwitcher.show(switcherContainer, "Empty list");
+			} else {
+				try {
+					var nextTask = manager.getNextTask();
+					setTask(nextTask);
+				} catch (BusinessException e) {
+					JOptionPane.showMessageDialog(this, "Could not get the next task");
+					return;
+				}
+				panelSwitcher.show(switcherContainer, "Task todo");
+			}
+		} catch (BusinessException e) {
+			JOptionPane.showMessageDialog(this, "Could not find out if manager have more task to do");
+		}
+	}
+	
+	private void setTask(Task newtask ) {
+		this.currentTask = newtask;
+		taskInfo_Label.setText(currentTask.getMessage());
+	}
+}

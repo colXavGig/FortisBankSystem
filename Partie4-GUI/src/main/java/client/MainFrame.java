@@ -1,0 +1,102 @@
+package client;
+
+import java.awt.CardLayout;
+import java.awt.GraphicsConfiguration;
+import java.awt.HeadlessException;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import bus.model.user.BankClient;
+import bus.model.user.BankManager;
+import bus.service.App;
+import client.bankClient.ClientDashboard;
+import client.bankManager.ManagerDashboard;
+
+public class MainFrame extends JFrame {
+
+	CardLayout paneSwitcher;
+	JPanel switchContainer;
+	
+	AuthView loginAuthPanel;
+	RegisterView registerPanel;
+	
+	ClientDashboard clientDashboard;
+	ManagerDashboard managerDashboard;
+	
+	private static final long serialVersionUID = 5024129478181767841L;
+
+	public MainFrame() throws HeadlessException {
+		init();
+	}
+
+	public MainFrame(GraphicsConfiguration gc) {
+		super(gc);
+		init();
+	}
+
+	public MainFrame(String title) throws HeadlessException {
+		super(title);
+		init();
+	}
+
+	public MainFrame(String title, GraphicsConfiguration gc) {
+		super(title, gc);
+		init();
+	}
+	
+	private void init() {
+		App.getInstance().init(); // async init
+		
+		paneSwitcher = new CardLayout();
+		switchContainer = new JPanel(paneSwitcher);
+		
+		setSize(500, 540);
+		
+		loginAuthPanel= new AuthView(this);
+		switchContainer.add(loginAuthPanel, "Login");
+		
+		registerPanel = new RegisterView(this);
+		switchContainer.add(registerPanel, "Register");
+		
+		clientDashboard = new ClientDashboard();
+		switchContainer.add(clientDashboard, "Client dashboard");
+		
+		managerDashboard = new ManagerDashboard(this);
+		switchContainer.add(managerDashboard, "Manager dashboard");
+		
+		add(switchContainer);
+		
+		setVisible(true);
+	}
+	
+	public void showLogin() {
+		paneSwitcher.show(switchContainer, "Login");
+	}
+	
+	public void showRegister() {
+		paneSwitcher.show(switchContainer, "Register");
+	}
+	
+	void showClientDashboard(BankClient client) {
+		clientDashboard.setClient(client);
+		paneSwitcher.show(switchContainer, "Client dashboard");
+	}
+	
+	void showManagerDashboard(BankManager manager) {
+		managerDashboard.setManager(manager);
+		paneSwitcher.show(switchContainer, "Manager dashboard");
+	}
+	
+	public void logout() {
+		showLogin();
+	}
+	
+	
+
+	public static void main(String[] args) {
+		var frame = new MainFrame();
+		frame.show();
+	}
+
+}

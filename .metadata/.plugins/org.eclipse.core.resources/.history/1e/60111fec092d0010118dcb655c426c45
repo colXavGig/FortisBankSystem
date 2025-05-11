@@ -1,0 +1,13 @@
+package client.bankClient;
+
+import javax.swing.JPanel;
+
+public class CurrencyAccountCreatorView extends JPanel {
+
+	private static final long serialVersionUID = 1207654655676805106L;
+
+	public CurrencyAccountCreatorView() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

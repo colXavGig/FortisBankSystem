@@ -1,0 +1,85 @@
+package client;
+
+import bus.Currency;
+import bus.account.BankAccount;
+import bus.account.CheckingAccount;
+import bus.account.CreditAccount;
+import bus.account.CurrencyAccount;
+import bus.account.SavingAccount;
+import client.helper.CLI;
+
+public class BankAccountCreaterUI {
+	
+	private BankAccount account = null;
+	
+	public BankAccountCreaterUI() {
+		createAccount();
+	}
+	
+	public BankAccount getAccount() {
+		return account;
+	}
+	public void setAccount(BankAccount account) {
+		this.account = account;
+	}
+	
+	public void createAccount() {
+		System.out.println("Creating a new bank account...");
+		while (account == null) {
+			System.out.println("Select account type:");
+			System.out.println("1. Savings");
+			System.out.println("2. Checking");
+			System.out.println("3. Credit");
+			System.out.println("4. Foreign Currency");
+			
+			
+			int accountType = Integer.parseInt(CLI.getString("Enter account type: "));
+			
+			switch (accountType) {
+				case 1:
+					setAccount(createSavingsAccount());
+					break;
+				case 2:
+					setAccount(createCheckingAccount());
+					break;
+				case 3:
+					setAccount(createCreditAccount());
+					break;
+				case 4:
+					setAccount(createCurrencyAccount());
+					break;
+				default:
+					System.out.println("Invalid account type. Please try again.");
+					continue;
+			}
+		}
+	}
+	private BankAccount createCurrencyAccount() {
+		System.out.println("Creating a foreign currency account...");
+		System.out.println("Available currencies:");
+		for (Currency currency : Currency.values()) {
+			System.out.println(currency);
+		}
+		Currency currency = Currency.valueOf(CLI.getString("Enter currency: "));
+		var currencyAccount = new CurrencyAccount(currency);
+		return currencyAccount;
+	}
+	private BankAccount createCreditAccount() {
+		System.out.println("Creating a credit account...");
+		var creditLimit = Double.parseDouble(CLI.getString("Enter credit limit: "));
+		var interestRate = Double.parseDouble(CLI.getString("Enter interest rate: "));
+		var creditAccount = new CreditAccount(creditLimit, interestRate);
+		return creditAccount;
+	}
+	private BankAccount createCheckingAccount() {
+		System.out.println("Creating a checking account...");
+		var checkingAccount = new CheckingAccount();
+		return checkingAccount;
+	}
+	private BankAccount createSavingsAccount() {
+		System.out.println("Creating a savings account...");
+		var interestRate = Double.parseDouble(CLI.getString("Enter interest rate: "));
+		var savingsAccount = new SavingAccount(interestRate);
+		return savingsAccount;
+	}
+}

@@ -1,0 +1,20 @@
+1745205474209	Delete elements
+1745207044866	Rename type 'ClientDao'
+1745207472075	Rename type 'UserDao'
+1745210596252	Rename type 'IDAO'
+1745285214708	Delete element
+1745289873074	Encapsulate field 'status, ...'
+1745290888300	Encapsulate field 'accountID, ...'
+1745291403669	Rename type 'ClientTask'
+1745291587157	Encapsulate field 'userID, ...'
+1745291687430	Delete element
+1745291961190	Encapsulate field 'userType, ...'
+1745292823091	Delete element
+1745292834231	Delete element
+1745292843709	Delete element
+1745293441219	Delete element
+1745293475018	Delete element
+1745295205969	Rename type 'ClientDao'
+1745296533933	Delete element
+1745297287772	Delete element
+1745300362569	Encapsulate field 'userID, ...'

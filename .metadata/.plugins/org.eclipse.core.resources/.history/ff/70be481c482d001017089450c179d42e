@@ -1,0 +1,59 @@
+package client.bankClient.accountManager;
+
+import java.awt.CardLayout;
+import java.util.Stack;
+
+import javax.swing.JPanel;
+
+import bus.model.account.BankAccount;
+import bus.model.user.BankClient;
+
+public class BankAccountManagerView extends JPanel {
+
+	private static final long serialVersionUID = -140645226591956846L;
+	
+	private BankAccount account;
+	
+	private Stack<String> navHistory;
+	private CardLayout panelSwitcher;
+	private JPanel switcherContainer;
+	
+	private TransactionHistoryView transactionHistory;
+	private TransactionMakerView transactionMaker;
+
+	public BankAccountManagerView(BankClient client) {
+		navHistory = new Stack<String>();
+		panelSwitcher = new CardLayout();
+		switcherContainer = new JPanel();
+		
+		transactionHistory = new TransactionHistoryView(this);
+		switcherContainer.add(transactionHistory, "Transact history");
+		
+		transactionMaker = new TransactionMakerView(this, client.getBankAccounts());
+		switcherContainer.add(transactionMaker);
+		
+		
+		
+		
+	}
+
+	public void setAccount(BankAccount account) {
+		this.account = account;
+	}
+	
+	public void showTransactionHistory() {
+		showPanel("Transact history");
+	}
+	
+	private void showPanel(String name) {
+		navHistory.push(name);
+		panelSwitcher.show(switcherContainer, name);
+	}
+	
+	void navBack() {
+		navHistory.pop();
+		panelSwitcher.show(switcherContainer, navHistory.peek());
+	}
+	
+
+}

@@ -1,0 +1,20 @@
+package client.bankClient;
+
+import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
+
+public class AddAccountView extends JPanel {
+
+	
+	
+	private static final long serialVersionUID = -3639977753174761212L;
+	
+	private BankAccountManagerView parent;
+
+	public AddAccountView(BankAccountManagerView parent) {
+		this.parent = parent;
+	}
+
+
+}

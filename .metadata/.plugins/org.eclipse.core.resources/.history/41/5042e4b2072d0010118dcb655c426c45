@@ -1,0 +1,5 @@
+package bus.model.account;
+
+public enum BankAccountType {
+
+}

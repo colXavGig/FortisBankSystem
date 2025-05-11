@@ -1,0 +1,37 @@
+package utils;
+
+import java.io.IOException;
+
+import bus.transaction.TransactionRecord;
+
+public class TransactionRecordCollection
+extends DataCollection<TransactionRecord> {
+
+	private static TransactionRecordCollection instance = null;
+	
+	private TransactionRecordCollection() throws ClassNotFoundException, IOException {
+		super();
+		fileManager = new FileManager<TransactionRecord>(TransactionRecord.class);
+		load();
+	}
+	
+	public static TransactionRecordCollection getInstance() 
+			throws ClassNotFoundException, IOException {
+		if (instance == null) {
+			instance = new TransactionRecordCollection();
+		}
+		return instance;
+	}
+	
+	public void refresh() throws ClassNotFoundException, IOException {
+		var instance = getInstance();
+		instance.clear();
+		UserCollection.getInstance().getBankClients().forEach(client -> {
+			client.getBankAccounts().forEach(account -> {
+				account.getTransactionsHistory().forEach(record -> {
+					instance.add(record);
+				});
+			});
+		});
+	}
+}

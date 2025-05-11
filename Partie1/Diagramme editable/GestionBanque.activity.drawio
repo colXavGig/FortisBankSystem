@@ -1,0 +1,91 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0" version="26.1.0">
+  <diagram name="Page-1" id="e7e014a7-5840-1c2e-5031-d8a46d1fe8dd">
+    <mxGraphModel dx="1631" dy="879" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="826" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="Gestion de banque" style="swimlane;whiteSpace=wrap" parent="1" vertex="1">
+          <mxGeometry x="60" y="100" width="530" height="680" as="geometry" />
+        </mxCell>
+        <mxCell id="358TWNbUmr-nA4DGMjKM-43" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="2" source="5" target="358TWNbUmr-nA4DGMjKM-44">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="467.75" y="125" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5" value="" style="ellipse;shape=startState;fillColor=#000000;strokeColor=#ff0000;" parent="2" vertex="1">
+          <mxGeometry x="248.87" y="40" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="Créé un nouveau profil de client" style="whiteSpace=wrap;" parent="2" vertex="1">
+          <mxGeometry x="60" y="171" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="Entrez le nom et prénom" style="whiteSpace=wrap;" parent="2" vertex="1">
+          <mxGeometry x="60" y="250" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="" style="endArrow=open;strokeColor=#FF0000;endFill=1;rounded=0" parent="2" source="7" target="8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="358TWNbUmr-nA4DGMjKM-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="2" source="10" target="358TWNbUmr-nA4DGMjKM-49">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="Choisir un NIP" style="" parent="2" vertex="1">
+          <mxGeometry x="60" y="323" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="" style="endArrow=open;strokeColor=#FF0000;endFill=1;rounded=0" parent="2" source="8" target="10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="358TWNbUmr-nA4DGMjKM-53" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF0000;" edge="1" parent="2" source="358TWNbUmr-nA4DGMjKM-44" target="358TWNbUmr-nA4DGMjKM-52">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="358TWNbUmr-nA4DGMjKM-54" value="Fermer le compte client" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="358TWNbUmr-nA4DGMjKM-53">
+          <mxGeometry x="0.6872" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="358TWNbUmr-nA4DGMjKM-44" value="Type d&#39;opération" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="2">
+          <mxGeometry x="210" y="110" width="107.75" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="358TWNbUmr-nA4DGMjKM-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="2" source="358TWNbUmr-nA4DGMjKM-44" target="7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="358TWNbUmr-nA4DGMjKM-46" value="Nouveau client" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="358TWNbUmr-nA4DGMjKM-45">
+          <mxGeometry x="0.4638" y="-1" relative="1" as="geometry">
+            <mxPoint x="-4" y="16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="358TWNbUmr-nA4DGMjKM-50" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classicThin;startFill=1;endArrow=none;strokeColor=#FF0000;" edge="1" parent="2" source="358TWNbUmr-nA4DGMjKM-47" target="358TWNbUmr-nA4DGMjKM-49">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="358TWNbUmr-nA4DGMjKM-60" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="2" source="358TWNbUmr-nA4DGMjKM-47" target="358TWNbUmr-nA4DGMjKM-59">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="358TWNbUmr-nA4DGMjKM-47" value="Création du compte voulu par le client (voir gestion compte)" style="whiteSpace=wrap;html=1;" vertex="1" parent="2">
+          <mxGeometry x="55" y="490" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="358TWNbUmr-nA4DGMjKM-49" value="Facultatif:&lt;div&gt;Entrée le courriel et le numéro de téléphone&lt;/div&gt;" style="whiteSpace=wrap;html=1;" vertex="1" parent="2">
+          <mxGeometry x="55" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="358TWNbUmr-nA4DGMjKM-56" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF0000;" edge="1" parent="2" source="358TWNbUmr-nA4DGMjKM-52" target="358TWNbUmr-nA4DGMjKM-55">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="358TWNbUmr-nA4DGMjKM-52" value="Identifier le client souhaitant fermer son compte" style="whiteSpace=wrap;html=1;" vertex="1" parent="2">
+          <mxGeometry x="340.005" y="166" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="358TWNbUmr-nA4DGMjKM-58" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF0000;" edge="1" parent="2" source="358TWNbUmr-nA4DGMjKM-55" target="358TWNbUmr-nA4DGMjKM-57">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="358TWNbUmr-nA4DGMjKM-55" value="Fermer les comptes bancaires du clients (voir gestion de compte)" style="whiteSpace=wrap;html=1;" vertex="1" parent="2">
+          <mxGeometry x="340.005" y="318" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="358TWNbUmr-nA4DGMjKM-61" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#FF0000;" edge="1" parent="2" source="358TWNbUmr-nA4DGMjKM-57" target="358TWNbUmr-nA4DGMjKM-59">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="358TWNbUmr-nA4DGMjKM-57" value="Supprimer le profil du client" style="whiteSpace=wrap;html=1;" vertex="1" parent="2">
+          <mxGeometry x="340.005" y="490" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="358TWNbUmr-nA4DGMjKM-59" value="" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#ff0000;" vertex="1" parent="2">
+          <mxGeometry x="240" y="620" width="30" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

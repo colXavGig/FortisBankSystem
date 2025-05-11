@@ -1,0 +1,47 @@
+package client;
+
+import java.io.IOException;
+
+import bus.user.BankClient;
+import bus.user.BankManager;
+import bus.user.User;
+
+public class Terminal {
+
+	public static void main(String[] args) {
+		var sys = bus.System.getInstance();
+		try {
+			sys.init();
+		} catch (ClassNotFoundException | IOException e) {
+			System.err.println("Error initializing system: " + e.getMessage());
+			e.printStackTrace();
+			System.exit(1);
+		}
+		
+		User user = null;
+		while (user == null) {
+			try {
+				user = AuthUI.login();
+			} catch (UIException e) {
+				System.err.println("Error: " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		
+		if (user instanceof BankClient) {
+			System.out.println("Welcome, client!");
+			var clientDashboard = new ClientDashboard((BankClient) user);
+			clientDashboard.display();
+		} else if (user instanceof BankManager) {
+			System.out.println("Welcome, manager!");
+			var managerDashboard = new ManagerDashboard((BankManager) user);
+			managerDashboard.display();
+		} else {
+			System.out.println("Unknown user type.");
+			System.exit(1);
+		}
+		System.out.println("%n%nThanks for using our system!%n%n");
+		System.exit(0);
+	}
+
+}

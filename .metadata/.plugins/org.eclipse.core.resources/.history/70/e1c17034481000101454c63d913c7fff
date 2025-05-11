@@ -1,0 +1,5 @@
+package bus.user.notification;
+
+public interface INotification {
+	String getMessage();
+}

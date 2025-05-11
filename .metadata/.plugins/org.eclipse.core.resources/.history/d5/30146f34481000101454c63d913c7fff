@@ -1,0 +1,132 @@
+package bus.user;
+
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import bus.account.BankAccount;
+import bus.transaction.Transaction;
+import bus.transaction.TransactionRecord;
+import bus.user.notification.TaskAction;
+import utils.TaskCollection;
+import bus.user.notification.Task;
+import bus.user.notification.BankAccountTask;
+import bus.user.notification.ClientNotification;
+
+public class BankClient extends User
+	implements IBankClient {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4968800577699797953L;
+	private List<BankAccount> comptes;
+	private List<ClientNotification> notifications;
+
+    public BankClient(
+    		Integer id, String nom, String prenom, String nip, String adresse, String email, String telephone
+    		) {
+        super(id, nom, prenom, nip, adresse, email, telephone);
+        this.comptes = new ArrayList<>();
+        this.notifications = new ArrayList<>();
+    }
+    
+    public void requestNewAccount(BankAccount account) throws ClassNotFoundException, IOException {
+		Task task = new BankAccountTask(this, account, TaskAction.CREATION);
+		TaskCollection.getInstance().add(task);
+	}
+    
+    public void requestDeleteAccount(BankAccount account) throws ClassNotFoundException, IOException {
+    	assert(getBankAccounts().contains(account));
+		Task task = new BankAccountTask(this, account, TaskAction.DELETION);
+		TaskCollection.getInstance().add(task);
+    }
+
+
+
+    @Override
+    public String getInfos() {
+        return "Client: " + getLastname() + " " + getLastname() + ", Email: " + getEmail() +
+			   ", Telephone: " + getTelephoneNumber() + ", Adresse: " + getAddress();
+		
+    }
+
+	public List<BankAccount> getBankAccounts() {
+		return comptes;
+	}
+
+	public void setBankAccounts(List<BankAccount> list) {
+		this.comptes = list;		
+	}
+
+	public void addBankAccount(BankAccount account) {
+		this.comptes.add(account);
+	}
+
+	public void removeBankAccount(BankAccount account) {
+		this.comptes.remove(account);
+	}
+
+	public BankAccount getBankAccount(int accountID) {
+		return comptes.stream()
+				.filter(account -> account.getID() == accountID)
+				.findFirst()
+				.orElse(null);
+	}
+
+	public void makeTransaction(Transaction transact, BankAccount account) throws Exception {
+		if (! comptes.contains(account)) {
+			throw new Exception("Account not found in client's accounts."); // TODO: Handle this exception properly with custom exception
+		}
+		account.doTransaction(transact);
+		account.applyNotification(this);
+	}
+
+	public Double checkBalance(BankAccount account) {
+		if (! comptes.contains(account)) {
+			throw new IllegalArgumentException("Account not found in client's accounts."); // TODO: Handle this exception properly with custom exception
+		}
+		return account.getBalance();
+	}
+
+	public List<TransactionRecord> checkTransactionsHistory() {
+		List<TransactionRecord> transactions = new ArrayList<>();
+		for (BankAccount account : comptes) {
+			transactions.addAll(account.getTransactionsHistory());
+		}
+		return transactions;
+	}
+
+	public List<TransactionRecord> checkTransactionsHistory(BankAccount account) {
+		if (! comptes.contains(account)) {
+			throw new IllegalArgumentException("Account not found in client's accounts."); // TODO: Handle this exception properly with custom exception
+		}
+		return account.getTransactionsHistory();
+	}
+
+	public void addNotification(ClientNotification notif) {
+		notifications.add(notif);
+	}
+	
+	public boolean printNotifications(PrintStream printStream) {
+		if (notifications.isEmpty()) {
+			return false;
+		}
+		for (ClientNotification notif : notifications) {
+			printStream.println(notif.getMessage());
+			notifications.remove(notif);
+		}
+		return true;
+	}
+	
+	public int getNumberOfNotifications() {
+		return notifications.size();
+	}
+
+
+
+
+
+}
+ 

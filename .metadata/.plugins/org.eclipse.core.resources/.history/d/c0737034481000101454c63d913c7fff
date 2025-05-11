@@ -1,0 +1,31 @@
+package bus.user.notification;
+
+import java.io.IOException;
+
+import bus.user.BankClient;
+import utils.UserCollection;
+
+public class ClientCreationTask extends ClientTask {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7706877386079003238L;
+
+	public ClientCreationTask(BankClient client) {
+		super(client, TaskAction.CREATION);
+	}
+
+	@Override
+	public void approve() throws ClassNotFoundException, IOException {
+		UserCollection.getInstance().add(getClient());
+		complete();
+		
+	}
+
+	@Override
+	public String getMessage() {
+		return "Bonjour, vous avez une nouvelle demande de création de compte à approuver."
+				+ this.getClient().getInfos(); 
+	}
+}

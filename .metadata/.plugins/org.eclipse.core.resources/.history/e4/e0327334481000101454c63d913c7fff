@@ -1,0 +1,89 @@
+package utils;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.function.Predicate;
+
+public abstract class DataCollection<T> {
+	
+	private List<T> data = new ArrayList<T>();
+	protected FileManager<T> fileManager;
+	
+	protected DataCollection() {
+		
+	}
+	
+	public void add(T item) {
+		data.add(item);
+	}
+	
+	public void remove(T item) {
+		data.remove(item);
+	}
+	
+	public void update(int index, T item) {
+		if (index >= 0) {
+			data.set(index, item);
+		}
+	}
+	
+	public List<T> getData() {
+		return data;
+	}
+	
+	public void setData(List<T> data) {
+		this.data = data;
+	}
+	
+	public void clear() {
+		data.clear();
+	}
+	
+	public boolean isEmpty() {
+		return data.isEmpty();
+	}
+	
+	public int size() {
+		return data.size();
+	}
+	
+	public boolean contains(T item) {
+		return data.contains(item);
+	}
+	
+	public int indexOf(T item) {
+		return data.indexOf(item);
+	}
+	
+	public T get(int index) {
+		return data.get(index);
+	}
+	public void addAll(List<T> items) {
+		data.addAll(items);
+	}
+	public void removeAll(List<T> items) {
+		data.removeAll(items);
+	}
+	public void sort(Comparator<T> comparator) {
+		data.sort(comparator);
+	}
+	
+	public List<T> filter(Predicate<T> predicate) {
+		List<T> filteredData = new ArrayList<>();
+		for (T item : data) {
+			if (predicate.test(item)) {
+				filteredData.add(item);
+			}
+		}
+		return filteredData;
+	}
+	
+	public void save() throws IOException {
+		fileManager.serialize(data);
+	}
+	public void load() throws IOException, ClassNotFoundException {
+		data = fileManager.deSerialize();
+	}
+}

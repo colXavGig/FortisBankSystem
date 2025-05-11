@@ -1,0 +1,16 @@
+package client;
+
+import javax.swing.JFrame;
+
+public class MainFrame extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3580909289631023660L;
+
+	public MainFrame() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

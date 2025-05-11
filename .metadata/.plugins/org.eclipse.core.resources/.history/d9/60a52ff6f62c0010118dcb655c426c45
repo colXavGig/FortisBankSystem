@@ -1,0 +1,93 @@
+package client;
+
+import java.awt.CardLayout;
+import java.awt.GraphicsConfiguration;
+import java.awt.HeadlessException;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import bus.model.user.BankClient;
+import client.bankClient.ClientDashboard;
+import client.bankManager.ManagerDashboard;
+
+public class MainFrame extends JFrame {
+
+	CardLayout paneSwitcher;
+	JPanel mainPanel;
+	
+	AuthPanel loginAuthPanel;
+	RegisterPanel registerPanel;
+	
+	ClientDashboard clientDashboard;
+	ManagerDashboard managerDashboard;
+	
+	private static final long serialVersionUID = 5024129478181767841L;
+
+	public MainFrame() throws HeadlessException {
+		init();
+	}
+
+	public MainFrame(GraphicsConfiguration gc) {
+		super(gc);
+		init();
+	}
+
+	public MainFrame(String title) throws HeadlessException {
+		super(title);
+		init();
+	}
+
+	public MainFrame(String title, GraphicsConfiguration gc) {
+		super(title, gc);
+		init();
+	}
+	
+	private void init() {
+		paneSwitcher = new CardLayout();
+		mainPanel = new JPanel(paneSwitcher);
+		
+		setSize(500, 540);
+		
+		loginAuthPanel= new AuthPanel(this);
+		mainPanel.add(loginAuthPanel, "Login");
+		
+		registerPanel = new RegisterPanel(this);
+		mainPanel.add(registerPanel, "Register");
+		
+		clientDashboard = new ClientDashboard();
+		mainPanel.add(clientDashboard, "Client dashboard");
+		
+		managerDashboard = new ManagerDashboard();
+		mainPanel.add(managerDashboard, "Manager dashboard");
+		
+		add(mainPanel);
+		
+		setVisible(true);
+	}
+	
+	public void showLogin() {
+		paneSwitcher.show(mainPanel, "Login");
+	}
+	
+	public void showRegister() {
+		paneSwitcher.show(mainPanel, "Register");
+	}
+	
+	void showClientDashboard(BankClient client) {
+		clientDashboard.setClient(client);
+		paneSwitcher.show(mainPanel, "Client dashboard");
+	}
+	
+	void showManagerDashboard() {
+		paneSwitcher.show(mainPanel, "Manager dashboard");
+	}
+	}
+	
+	
+
+	public static void main(String[] args) {
+		var frame = new MainFrame();
+	}
+
+}

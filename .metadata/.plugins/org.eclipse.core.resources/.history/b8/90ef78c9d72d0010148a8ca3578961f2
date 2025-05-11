@@ -1,0 +1,84 @@
+package client.bankManager;
+
+import java.awt.CardLayout;
+import java.util.Stack;
+
+import javax.swing.JPanel;
+
+import bus.model.user.BankManager;
+import client.AuthView;
+import client.MainFrame;
+
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class ManagerDashboard extends JPanel {
+
+	private static final long serialVersionUID = -5706336339743980016L;
+	
+	private MainFrame parentView;
+	private BankManager manager;
+	
+	private CardLayout panelSwitcher = new CardLayout();
+	private Stack<String> navHistory = new Stack<String>();
+	private JPanel selectorPanel;
+	
+
+	public ManagerDashboard(MainFrame parent) {
+		super();
+		parentView = parent;
+		setLayout(panelSwitcher);
+		
+		selectorPanel = new JPanel();
+		add(selectorPanel, "Selector view");
+		selectorPanel.setLayout(null);
+		
+		JButton tasksBtn = new JButton("Work on tasks");
+		tasksBtn.setBounds(76, 88, 127, 47);
+		selectorPanel.add(tasksBtn);
+		
+		JButton transactDetailsBtn = new JButton("Check transactions details");
+		transactDetailsBtn.setBounds(264, 88, 127, 47);
+		selectorPanel.add(transactDetailsBtn);
+		
+		JButton checkBalanceBtn = new JButton("Check balance");
+		checkBalanceBtn.setBounds(163, 164, 127, 47);
+		selectorPanel.add(checkBalanceBtn);
+		
+		JButton backBtn = new JButton("Logout");
+		backBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				parentView.logout();
+			}
+		});
+		backBtn.setBounds(10, 11, 89, 23);
+		selectorPanel.add(backBtn);
+		
+		
+	}
+	
+	public void showSelector() {
+		showPanel("Selector view");
+	}
+	
+	private void showPanel(String panelName) {
+		navHistory.push(panelName);
+		panelSwitcher.show(this, panelName);
+	}
+	
+	public void navBack() {
+		if (navHistory.size() <= 1) {
+			parentView.logout();
+		}
+		
+		
+	}
+
+
+	public void setManager(BankManager manager) {
+		this.manager = manager;
+	}
+}

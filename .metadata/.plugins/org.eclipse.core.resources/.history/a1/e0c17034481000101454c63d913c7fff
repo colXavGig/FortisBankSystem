@@ -1,0 +1,34 @@
+package bus.user.notification;
+
+import bus.user.BankClient;
+
+public abstract class ClientTask extends Task {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8895906542789322627L;
+	
+	private BankClient client;
+	private TaskAction type;
+	public ClientTask(BankClient client, TaskAction type) {
+		super();
+		this.client = client;
+		this.setType(type);
+	}
+	public TaskAction getType() {
+		return type;
+	}
+	public void setType(TaskAction type) {
+		this.type = type;
+	}
+	public BankClient getClient() {
+		return client;
+	}
+	public void setClient(BankClient client) {
+		this.client = client;
+	}
+
+}
+
+

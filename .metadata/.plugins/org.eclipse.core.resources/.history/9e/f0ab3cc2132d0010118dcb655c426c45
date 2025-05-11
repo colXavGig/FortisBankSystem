@@ -1,0 +1,9 @@
+package client.bankClient.accountManager;
+
+public class BankAccountManagerView {
+
+	public BankAccountManagerView() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

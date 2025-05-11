@@ -1,0 +1,8 @@
+package client;
+
+import javax.swing.*;
+
+public class AuthPane extends javax.swing.JPanel {
+
+    AuthPane() {}
+}

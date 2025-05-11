@@ -1,0 +1,41 @@
+package client;
+
+import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+
+public class AuthPanel extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5818133698486830709L;
+
+	public AuthPanel() {
+		init();
+	}
+
+	public AuthPanel(LayoutManager layout) {
+		super(layout);
+		init();
+	}
+
+	public AuthPanel(boolean isDoubleBuffered) {
+		super(isDoubleBuffered);
+		init();
+	}
+
+	public AuthPanel(LayoutManager layout, boolean isDoubleBuffered) {
+		super(layout, isDoubleBuffered);
+		init();
+	}
+	
+	private void init() {
+		setLayout(null);
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(45, 102, 46, 14);
+		add(lblNewLabel);
+	}
+
+}

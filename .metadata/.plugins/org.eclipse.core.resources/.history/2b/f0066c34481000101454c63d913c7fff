@@ -1,0 +1,84 @@
+package bus;
+
+import java.io.IOException;
+import java.time.LocalDate;
+
+import bus.account.BankAccount;
+import bus.account.CreditAccount;
+import bus.account.CurrencyAccount;
+import bus.account.SavingAccount;
+import bus.user.notification.TaskAction;
+import bus.user.notification.Task;
+import bus.user.notification.BankAccountTask;
+import utils.BankAccountCollection;
+import utils.TaskCollection;
+import utils.TransactionRecordCollection;
+import utils.UserCollection;
+
+public class System {
+
+	private static System instance = null;
+	private System() {}
+	public static System getInstance() {
+		if (instance == null) {
+			instance = new System();
+		}
+		return instance;
+	}
+	public void refresh() throws ClassNotFoundException, IOException {
+		BankAccountCollection.getInstance().refresh();
+		TransactionRecordCollection.getInstance().refresh();
+	}
+	
+	public void init() throws ClassNotFoundException, IOException {
+		removeInactiveCurrencyAccounts();
+		applyInterest();
+	}
+	
+	void removeInactiveCurrencyAccounts() throws ClassNotFoundException, IOException {
+		var taskCollection = TaskCollection.getInstance();
+		UserCollection.getInstance().getBankClients().forEach(client -> {
+			client.getBankAccounts().stream()
+			.filter((account) -> account instanceof CurrencyAccount)
+			.forEach(account -> {
+				if (!((CurrencyAccount) account).isActive()) {
+					Task task = new BankAccountTask(client, account, TaskAction.DELETION);
+					taskCollection.add(task);
+				}
+			});
+		});
+	}
+	
+	void applyInterest() throws ClassNotFoundException, IOException {
+		UserCollection.getInstance().getBankClients().stream()
+		.forEach(client -> {
+			client.getBankAccounts().stream()
+			.filter((account) -> account instanceof CreditAccount || account instanceof SavingAccount)
+			.forEach(account -> {
+				boolean interestApplied = 
+				account.getTransactionsHistory().stream()
+				.filter(record -> record.type().contains("Interest"))
+				.filter(record -> record.date().isAfter(LocalDate.now().minusMonths(1)))
+				.count() > 0 ;
+				
+				if(!interestApplied) {
+					if (account instanceof CreditAccount) {
+						try {
+							((CreditAccount) account).applyInterest();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} else if (account instanceof SavingAccount) {
+						try {
+							((SavingAccount) account).appliquerInterets();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			});
+		});
+	}
+}

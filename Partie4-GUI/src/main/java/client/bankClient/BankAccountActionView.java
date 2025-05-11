@@ -1,0 +1,127 @@
+package client.bankClient;
+
+import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Stack;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+import bus.model.account.BankAccount;
+import bus.model.user.BankClient;
+import client.bankClient.accountCreator.CreateAccountView;
+import client.bankClient.accountManager.BankAccountManagerView;
+
+public class BankAccountActionView extends JPanel {
+
+	private CardLayout panelSwitcher;
+	private Stack<String> navHistory;
+	
+	BankAccountManagerView accountManager;
+	JComboBox<BankAccount> comboBox;
+	
+	private static final long serialVersionUID = -6488005888038943357L;
+	
+	ClientDashboard parent;
+
+	public BankAccountActionView(ClientDashboard parent) {
+		super();
+		init(parent);
+	}
+	
+	public void setClient(BankClient client ) {
+		setAccounts(client.getBankAccounts());
+	}
+	
+	public void setAccounts(List<BankAccount> accounts) {
+		var accountsArray = new BankAccount[accounts.size()];
+		comboBox.setModel(new DefaultComboBoxModel<BankAccount>(accounts.toArray(accountsArray)));
+		accountManager.setAccountList(accounts);
+	}
+	
+	private void init(ClientDashboard parentDashboard) {
+		parent = parentDashboard;
+
+		navHistory = new Stack<String>();
+		panelSwitcher = new CardLayout();
+		setLayout(panelSwitcher);
+		
+		
+		var accountCreator = new CreateAccountView(this);
+		accountCreator.setBounds(90, 33, 249, 159);
+		add(accountCreator,"Account creator");
+		
+		var selector = new JPanel();
+		selector.setBounds(0, 0, 450, 289);
+		selector.setLayout(null);
+		add(selector, "View Selector");
+		
+		JButton createBtn = new JButton("Create account");
+		createBtn.setBounds(69, 179, 229, 23);
+		createBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showAccountCreator();
+			}
+		});
+		selector.add(createBtn);
+		
+		comboBox = new JComboBox<BankAccount>();
+		
+		comboBox.setBounds(71, 56, 239, 22);
+		selector.add(comboBox);
+		
+		JButton manageBtn = new JButton("Manage account");
+		manageBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				var selectedAccount = comboBox.getItemAt(comboBox.getSelectedIndex());
+				showAccountManager(selectedAccount);
+			}
+		});
+		manageBtn.setBounds(98, 108, 147, 23);
+		selector.add(manageBtn);
+		
+		accountManager = new BankAccountManagerView(this);
+		add(accountManager, "Account manager");
+		
+		showSelector();
+	}
+	
+	void showAccountCreator() {
+		var panelName = "Account creator";
+		showPanel(panelName);
+	}
+	
+	void showSelector() {
+		showPanel("View Selector");
+	}
+	
+	void showAccountManager(BankAccount account) {
+		accountManager.setAccount(account);
+		showPanel("Account manager");
+	}
+	
+	private void showPanel(String panelName) {
+		navHistory.push(panelName);
+		panelSwitcher.show(this, panelName);
+	}
+	
+	public void navBack() {
+		if (navHistory.size() <= 1) {
+			JOptionPane.showMessageDialog(this, "History empty");
+			return;
+		}
+		navHistory.pop();
+		panelSwitcher.show(this, navHistory.peek());
+	}
+	
+	public void createAccount(BankAccount account) {
+		parent.createBankAccount(account);
+	}
+}

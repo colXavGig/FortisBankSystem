@@ -1,0 +1,210 @@
+package client;
+
+import java.io.IOException;
+import java.lang.invoke.VarHandle;
+
+import bus.transaction.*;
+import bus.account.BankAccount;
+import bus.user.BankClient;
+import client.helper.CLI;
+
+public class ClientDashboard {
+	
+	// This class is responsible for displaying the client dashboard
+	private BankClient client;
+	
+	
+	public ClientDashboard(BankClient client) {
+		this.client = client;
+	}
+	
+	public void display() {
+		System.out.println("Welcome, " + client.getFirstname() + " " + client.getLastname() + "!");
+		System.out.println("You have " + client.getNumberOfNotifications() + "  notifications:");
+		mainMenu();
+	}
+	
+	public void mainMenu() {
+		while (true) {
+			System.out.println("Main Menu:");
+			System.out.println("1. Manage Account");
+			System.out.println("2. View Notifications");
+			System.out.println("3. Exit");
+			System.out.print("Please select an option: ");
+			int choice = Integer.parseInt(CLI.getString("Enter your choice: "));
+			
+			switch (choice) {
+				case 1:
+					viewAccounts();
+					break;
+				case 2:
+					client.printNotifications(System.out);
+					break;
+				case 3:
+					return;
+				default:
+					System.out.println("Invalid choice. Please try again.");
+			}
+		}
+			}
+
+	private void viewAccounts() {
+		while (true) {
+		int option = 0;
+		System.out.println(++option + ". Manage Account");
+		System.out.println(++option + ". Add Account");
+		System.out.println(++option + ". Back to Main Menu");
+		System.out.print("Please select an option: ");
+		int choice = Integer.parseInt(CLI.getString("Enter your choice: "));
+			switch (choice) {
+				case 1: // Manage Account
+					boolean again = true;
+					while (again) {
+						try {
+							manageAccount(selectAccount());
+							again = false;
+						} catch (UIException e) {
+							System.out.println(e.getMessage());
+							again = true;
+						}
+					}
+					break;
+				case 2: // Add Account
+					addAccount();
+					break;
+				case 3: // Back to Main Menu
+						return;
+				default:
+					System.out.println("Invalid choice. Please try again.");
+			}		
+		}
+	}
+
+	private void addAccount() {
+		System.out.println("Adding account...");
+		var accountCreator = new BankAccountCreaterUI();
+		try {
+			client.requestNewAccount(accountCreator.getAccount());
+		} catch (ClassNotFoundException | IOException e) {
+			System.err.println("Error adding account: " + e.getMessage());
+			e.printStackTrace();
+			return;
+		};
+		System.out.println("Account added successfully.");
+		
+	}
+
+	private BankAccount selectAccount() throws UIException {
+		System.out.println("Select an account:");
+		for (int i = 0; i < client.getBankAccounts().size(); i++) {
+			System.out.println((i + 1) + ". " + client.getBankAccounts().get(i).toString());
+		}
+		int choice = Integer.parseInt(CLI.getString("Enter your choice: "));
+		if (choice > 0 && choice <= client.getBankAccounts().size()) {
+			return client.getBankAccounts().get(choice - 1);
+		}
+		
+		throw new UIException("Invalid choice. Please try again.");
+	}
+
+	private void manageAccount(BankAccount account) {
+		System.out.println("Managing account...");
+		System.out.println("1. View Transactions History");
+		System.out.println("2. Make Transaction");
+		System.out.println("3. Check Balance");
+		System.out.println("4. Back to Accounts Menu");
+		System.out.print("Please select an option: ");
+		int choice = Integer.parseInt(CLI.getString("Enter your choice: "));
+		
+		switch (choice) {
+			case 1:
+				
+				viewTransactionsHistory(account);
+				break;
+			case 2:
+				System.out.println("Making transaction...");
+				makeTransaction(account);
+				break;
+			case 3:
+				System.out.println("Checking balance...");
+				System.out.println("Balance: " + client.checkBalance(account));
+				break;
+			default:
+				System.out.println("Invalid choice. Please try again.");
+		}		
+	}
+
+	private void makeTransaction(BankAccount account) {
+		System.out.println("Making transaction...");
+		Transaction transaction = null;
+		while (transaction == null) {
+			System.out.println("Select transaction type:");
+			System.out.println("1. Deposit");
+			System.out.println("2. Withdraw");
+			System.out.println("3. Transfer");
+			System.out.println("4. Back to Account Menu");
+			System.out.print("Please select an option: ");
+			int choice = Integer.parseInt(CLI.getString("Enter your choice: "));
+			
+			switch (choice) {
+				case 1:
+					transaction = new Deposit();
+					break;
+				case 2:
+					transaction = new Withdraw();
+					break;
+				case 3:
+					var transferAccount = selectDestinationAccount();
+					transaction = new Transfer(transferAccount);
+					break;
+				case 4:
+					return;
+				default:
+					System.out.println("Invalid choice. Please try again.");
+			}
+		}
+		
+		double amount = Double.parseDouble(CLI.getString("Enter amount: "));
+		transaction.setAmount(amount);
+		
+		try {
+			client.makeTransaction(transaction, account);
+		} catch (Exception e) {
+			System.err.println("Error making transaction: " + e.getMessage());
+			e.printStackTrace();
+			return;
+		}
+				
+	}
+
+	private BankAccount selectDestinationAccount() {
+		BankAccount destinationAccount = null;
+		System.out.println("Select destination account:");
+		while (destinationAccount == null) {
+			try {
+				destinationAccount = selectAccount();
+			} catch (UIException e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+			}
+			if (destinationAccount == null) {
+				System.out.println("Invalid choice. Please try again.");
+			}
+		}
+		return destinationAccount;
+	}
+
+	private void viewTransactionsHistory(BankAccount account) {
+		System.out.println("Transactions History:");
+		if (account.getTransactionsHistory().isEmpty()) {
+			System.out.println("No transactions found.");
+		} else 
+		for (TransactionRecord record : account.getTransactionsHistory()) {
+			System.out.println(record.toString());
+		}
+		
+		
+		System.out.println("Press Enter to continue...");
+		CLI.getString("");
+	}
+}

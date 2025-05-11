@@ -1,0 +1,13 @@
+package client.bankManager;
+
+import javax.swing.JPanel;
+
+public class TransactionDetailsView extends JPanel {
+
+	private static final long serialVersionUID = 638109259818923938L;
+
+	public TransactionDetailsView() {
+	}
+
+
+}

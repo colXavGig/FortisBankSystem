@@ -1,0 +1,27 @@
+package client.bankClient.accountManager;
+
+import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
+
+import bus.model.account.BankAccount;
+
+public class TransactionMakerView extends JPanel {
+	
+	private BankAccount account;
+	private BankAccountManagerView parentView;
+	
+
+	public TransactionMakerView(BankAccountManagerView parent) {
+		parentView = parent;
+		
+		
+	}
+
+
+	public void setAccount(BankAccount account) {
+		this.account = account;
+	}
+
+
+}

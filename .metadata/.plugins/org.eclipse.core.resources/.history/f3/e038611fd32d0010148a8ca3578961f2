@@ -1,0 +1,45 @@
+package client.bankManager;
+
+import java.awt.CardLayout;
+import java.util.Stack;
+
+import javax.swing.JPanel;
+
+import bus.model.user.BankManager;
+
+public class ManagerDashboard extends JPanel {
+
+	private static final long serialVersionUID = -5706336339743980016L;
+	
+	private BankManager manager;
+	
+	private CardLayout panelSwitcher = new CardLayout();
+	private Stack<String> navHistory = new Stack<String>();
+	private JPanel selectorPanel;
+	
+
+	public ManagerDashboard() {
+		super();
+		setLayout(panelSwitcher);
+		
+		selectorPanel = new JPanel();
+		add(selectorPanel, "Selector view");
+		
+		
+	}
+	
+	public void showSelector() {
+		showPanel("Selector view");
+	}
+	
+	private void showPanel(String panelName) {
+		navHistory.push(panelName);
+		panelSwitcher.show(this, panelName);
+	}
+
+
+	public void setManager(BankManager manager) {
+		this.manager = manager;
+	}
+
+}

@@ -1,0 +1,34 @@
+package bus.user.notification;
+
+import java.io.IOException;
+import java.io.Serializable;
+
+public abstract class Task implements Serializable, INotification {
+	
+	private static final long serialVersionUID = -8132504314381310721L;
+	private Boolean isDone;
+	
+	public Task() {
+		this.setIsDone(false);
+	}
+	
+	
+	protected void complete() {
+		this.setIsDone(true);
+	}
+	
+	public abstract void approve() throws ClassNotFoundException, IOException;
+	public void refuse() {
+		complete();
+	}
+
+
+	public Boolean getIsDone() {
+		return isDone;
+	}
+
+
+	private void setIsDone(Boolean isDone) {
+		this.isDone = isDone;
+	}
+}

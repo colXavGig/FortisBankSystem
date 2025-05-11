@@ -1,0 +1,105 @@
+package client.bankManager;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
+
+import bus.model.transaction.TransactionRecord;
+import utils.TransactionRecordCollection;
+import javax.swing.table.DefaultTableModel;
+
+public class TransactionDetailsView extends JPanel {
+
+	private static final long serialVersionUID = 638109259818923938L;
+	
+	private ManagerDashboard parentView;
+	private JTable transaction_Table;
+	private List<TransactionRecord> recordList; 
+
+	public TransactionDetailsView(ManagerDashboard parent) {
+		super();
+		parentView = parent;
+		setLayout(null);
+		try {
+			recordList = TransactionRecordCollection.getInstance().getData();
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(this, "Error loading transactions");
+			recordList = new ArrayList<TransactionRecord>();
+		}
+		
+		JButton back_Button = new JButton("Back");
+		back_Button.setBounds(10, 11, 89, 23);
+		back_Button.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				parentView.navBack();
+			}
+		});
+		add(back_Button);
+		
+		transaction_Table = new JTable();
+		transaction_Table.setBounds(20, 45, 420, 244);
+		transaction_Table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Historic ID", "Type", "New Balance", "Operation", "Date"
+			}
+		));
+		transaction_Table.setModel(new AbstractTableModel() {
+			
+			private static final long serialVersionUID = -5220282170655754381L;
+
+			@Override
+			public Object getValueAt(int rowIndex, int columnIndex) {
+				var record = recordList.get(rowIndex);
+				
+				switch (columnIndex) {
+				case 0: return record.historicID();
+				case 1: return record.type();
+				case 2: return record.newBalance();
+				case 3: return record.operation();
+				case 4: return record.date();
+				default: return record.getClass();
+				}
+			}
+			
+			@Override
+			public String getColumnName(int column) {
+				switch (column) {
+
+				case 0: return "Historic ID";
+				case 1: return "Type";
+				case 2: return "New Balance";
+				case 3: return "Operation";
+				case 4: return "Date";
+				
+				default:
+					throw new IllegalArgumentException("Unexpected value: " + column);
+				}
+			}
+			
+			@Override
+			public int getRowCount() {
+				
+				return recordList.size();
+			}
+			
+			@Override
+			public int getColumnCount() {
+				// TODO Auto-generated method stub
+				return 5;
+			}
+		});
+		add(transaction_Table);
+	}
+}

@@ -1,0 +1,22 @@
+package client.bankClient.accountManager;
+
+import javax.swing.JPanel;
+
+import bus.model.account.BankAccount;
+
+public class BankAccountManagerView extends JPanel {
+
+	private static final long serialVersionUID = -140645226591956846L;
+	
+	private BankAccount account;
+
+	public BankAccountManagerView() {
+	}
+
+	public void setAccount(BankAccount account) {
+		this.account = account;
+	}
+	
+	
+
+}

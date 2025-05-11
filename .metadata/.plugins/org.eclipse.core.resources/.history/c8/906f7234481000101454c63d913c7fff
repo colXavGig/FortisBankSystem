@@ -1,0 +1,22 @@
+package client.helper;
+
+import java.util.Scanner;
+
+public class CLI {
+
+	private CLI() {}
+	public static String getString(String prompt) {
+		System.out.print(prompt);
+		try (var scanner = new Scanner(System.in)) {
+			return scanner.nextLine();
+		}
+	}
+	public static void clear() {
+		//implement clear console
+	}
+	
+	public static void promptEnterToClear() {
+		getString("Press enter to continue...");
+		clear();
+	}
+}

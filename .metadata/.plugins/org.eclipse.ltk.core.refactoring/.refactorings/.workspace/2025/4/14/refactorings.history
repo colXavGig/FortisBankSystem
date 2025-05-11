@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Copy Project &apos;FortisBankSystem&apos;" description="Copy Project &apos;FortisBankSystem&apos;" destination="C:/Users/bebew/proj/java/FinalProject" element="/FortisBankSystem" flags="7" id="org.eclipse.ltk.core.refactoring.copyproject.resource" name="FortisBankSystem2" stamp="1743656261912"/>&#x0A;<refactoring comment="Delete resource &apos;FortisBankSystem2&apos;" deleteContents="false" description="Delete resource &apos;FortisBankSystem2&apos;" element1="/FortisBankSystem2" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1743657259041"/>
+</session>

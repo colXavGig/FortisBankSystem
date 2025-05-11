@@ -1,0 +1,28 @@
+package bus.model.notification;
+
+import java.io.Serializable;
+
+public class ManagerNotification implements INotification, Serializable {
+
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 6229550251974921316L;
+	public String nomGestionnaire;
+	Task tache;
+
+	/**
+	 * Constructeur de la classe ManagerNotification
+	 * @param nomGestionnaire le nom du gestionnaire
+	 */
+
+	public ManagerNotification(String nomGestionnaire) {
+		this.nomGestionnaire=nomGestionnaire;
+	}
+
+	@Override
+	public String getMessage() {
+		return " Bonjour " + nomGestionnaire + ", vous avez une vouvelle tache à faire.";
+	}
+}

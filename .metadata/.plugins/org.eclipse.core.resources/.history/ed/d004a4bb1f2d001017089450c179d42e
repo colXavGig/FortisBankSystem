@@ -1,0 +1,5 @@
+package bus.model.transaction;
+
+public enum ClientTransactionType {
+
+}

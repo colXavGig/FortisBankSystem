@@ -1,0 +1,15 @@
+package client.bankClient;
+
+import javax.swing.JPanel;
+
+public class CurrencyAccountCreatorView extends JPanel {
+
+	private static final long serialVersionUID = 1207654655676805106L;
+
+	private AddAccountView parent;
+	
+	public CurrencyAccountCreatorView(AddAccountView parent) {
+		this.parent = parent;
+	}
+
+}

@@ -1,0 +1,62 @@
+package client;
+
+import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+
+public class AuthPanel extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5818133698486830709L;
+	private JTextField textField;
+	private JTextField textField_1;
+
+	public AuthPanel() {
+		init();
+	}
+
+	public AuthPanel(LayoutManager layout) {
+		super(layout);
+		init();
+	}
+
+	public AuthPanel(boolean isDoubleBuffered) {
+		super(isDoubleBuffered);
+		init();
+	}
+
+	public AuthPanel(LayoutManager layout, boolean isDoubleBuffered) {
+		super(layout, isDoubleBuffered);
+		init();
+	}
+	
+	private void init() {
+		setLayout(null);
+		JLabel lblNewLabel = new JLabel("Email:");
+		lblNewLabel.setBounds(87, 102, 46, 14);
+		add(lblNewLabel);
+		
+		textField = new JTextField();
+		textField.setBounds(180, 99, 126, 20);
+		add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("Password:");
+		lblNewLabel_1.setBounds(87, 140, 46, 14);
+		add(lblNewLabel_1);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(180, 137, 126, 20);
+		add(textField_1);
+		textField_1.setColumns(10);
+		
+		JButton btnNewButton = new JButton("Login");
+		btnNewButton.setBounds(166, 197, 89, 23);
+		add(btnNewButton);
+	}
+}

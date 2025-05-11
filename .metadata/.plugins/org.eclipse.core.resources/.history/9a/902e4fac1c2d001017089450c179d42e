@@ -1,0 +1,17 @@
+package client.bankClient.accountManager;
+
+import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
+
+public class TransactionHistoryView extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5241904740849819011L;
+
+	public TransactionHistoryView() {
+	}
+
+}

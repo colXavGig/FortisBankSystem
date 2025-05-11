@@ -1,0 +1,47 @@
+package client.bankClient;
+
+import java.awt.LayoutManager;
+import java.util.List;
+
+import javax.swing.JPanel;
+
+import bus.model.notification.ClientNotification;
+
+public class ViewNotificationPanel extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private List<ClientNotification> notifs;
+
+	public ViewNotificationPanel() {
+		super();
+		init();
+	}
+
+	public ViewNotificationPanel(LayoutManager layout) {
+		super(layout);
+		init();
+	}
+
+	public ViewNotificationPanel(boolean isDoubleBuffered) {
+		super(isDoubleBuffered);
+		init();
+	}
+
+	public ViewNotificationPanel(LayoutManager layout, boolean isDoubleBuffered) {
+		super(layout, isDoubleBuffered);
+		init();
+	}
+
+	public void setNotifs(List<ClientNotification> notifs) {
+		this.notifs = notifs;
+	}
+	
+	private void init() {
+		
+	}
+
+}

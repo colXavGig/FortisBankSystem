@@ -1,0 +1,2 @@
+	 * @throws UtilException occurs when the file manager is not able 
+	 * to serialize the data for reason like file not found or IO exception
